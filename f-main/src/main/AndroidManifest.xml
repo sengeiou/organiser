@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.surfstudio.android.template.f_main">
+
+    <application android:label="@string/app_name">
+        <activity
+            android:name="ru.surfstudio.standard.f_main.main.MainActivityView"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="ru.surfstudio.standard.f_main.projects.ProjectsListActivityView" />
+    </application>
+
+</manifest>
