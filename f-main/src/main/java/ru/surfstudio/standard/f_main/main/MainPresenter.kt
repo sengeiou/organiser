@@ -5,7 +5,7 @@ import ru.surfstudio.android.core.mvp.presenter.BasePresenter
 import ru.surfstudio.android.core.mvp.presenter.BasePresenterDependency
 import ru.surfstudio.android.core.ui.navigation.fragment.FragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.standard.f_main.projects.ProjectsListRoute
+import ru.surfstudio.standard.f_main.projects.MainFolderRoute
 import javax.inject.Inject
 
 /**
@@ -22,6 +22,6 @@ class MainPresenter @Inject constructor(
     override fun onLoad(viewRecreated: Boolean) {
         super.onLoad(viewRecreated)
         view.render(sm)
-        fragmentNavigator.add(ProjectsListRoute(),false,TRANSIT_FRAGMENT_OPEN)
+        fragmentNavigator.add(MainFolderRoute(),false,TRANSIT_FRAGMENT_OPEN)
     }
 }

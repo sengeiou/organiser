@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorBottomAppBar">#5e9cea</color>
     <color name="colorLabelFab">#000000</color>
+    <color name="black">#000000</color>
 
     <color name="colorWindowBackgroundDark">#000</color>
     <color name="colorWindowBackgroundDarkTransparent">#3c000000</color>
