@@ -41,6 +41,8 @@ dependencies {
     implementation project("$templatePrefix:f-auth")
     implementation project("$templatePrefix:f-main")
     implementation project("$templatePrefix:f-splash")
+    implementation project("$templatePrefix:cf-main-folder")
+    implementation project("$templatePrefix:cf-other-folder")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

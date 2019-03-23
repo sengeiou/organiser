@@ -3,7 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorBottomAppBar">#5e9cea</color>
+    <color name="ColorApp">#5e9cea</color>
+    <color name="colorOtherToolbar">#3581e1</color>
     <color name="colorLabelFab">#000000</color>
     <color name="black">#000000</color>
 

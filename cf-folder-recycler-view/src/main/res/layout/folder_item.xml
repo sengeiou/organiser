@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/folder_data_container"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:orientation="horizontal">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/projects_folder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:src="@drawable/baseline_folder_black_24"
+        app:backgroundTint="@color/ColorApp"
+        app:fabSize="mini" />
+    <TextView
+        android:id="@+id/projects_folderName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Название"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        />
+
+</LinearLayout>

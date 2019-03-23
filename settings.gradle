@@ -1,4 +1,4 @@
-include ':i-projects', ':i-database'
+include ':i-projects', ':i-database', ':cf-bottom-bar', ':cf-main-folder', ':cf-folder-recycler-view', ':cf-other-folder'
 
 
 

@@ -2,12 +2,11 @@ package ru.surfstudio.standard.f_main.main
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.annotation.LayoutRes
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fab_layout.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
 import ru.surfstudio.android.core.mvp.presenter.CorePresenter
 import ru.surfstudio.android.core.ui.FragmentContainer
@@ -25,6 +24,13 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
     lateinit var presenter: MainPresenter
 
     private var fabIsOpen = false
+
+    lateinit var mainFab: FloatingActionButton
+    lateinit var projects_addFolder_fab: FloatingActionButton
+    lateinit var projects_add_folder_tv: TextView
+    lateinit var projects_addProject_fab: FloatingActionButton
+    lateinit var projects_add_project_tv: TextView
+
     lateinit var fabAnimShow: Animation
     lateinit var tvAnimShow: Animation
     lateinit var fabFoldeAnimHide: Animation
@@ -46,9 +52,17 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
             persistentState: PersistableBundle?,
             viewRecreated: Boolean
     ) {
+        initViews()
         initAnims()
         initListeners()
-        Log.d("PROJECTS","ADD PROJECT")
+    }
+
+    private fun initViews() {
+        mainFab = findViewById(R.id.projects_add_fab)
+        projects_addFolder_fab = findViewById(R.id.projects_add_folder_fab)
+        projects_add_folder_tv = findViewById(R.id.projects_add_folder_tv)
+        projects_addProject_fab = findViewById(R.id.projects_add_project_fab)
+        projects_add_project_tv = findViewById(R.id.projects_add_project_tv)
     }
 
     private fun initAnims() {
@@ -67,7 +81,7 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
     }
 
     private fun initFabListener() {
-        projects_add_fab.setOnClickListener {
+        mainFab.setOnClickListener {
             if (!fabIsOpen)
                 showFabMenu()
             else hideFabMenu()
@@ -87,7 +101,7 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
 
     private fun changeMainFabToOpen() {
         val resID = resources.getIdentifier("baseline_add_black_24", "drawable", applicationContext.packageName)
-        projects_add_fab.setImageResource(resID)
+        mainFab.setImageResource(resID)
     }
 
     private fun hideAddFolderTv() {
@@ -117,7 +131,7 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
 
     private fun changeMainFabToClose() {
         val resID = resources.getIdentifier("baseline_close_black_24", "drawable", applicationContext.packageName)
-        projects_add_fab.setImageResource(resID)
+        mainFab.setImageResource(resID)
     }
 
     private fun showAddFolderTv() {

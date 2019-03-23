@@ -15,4 +15,6 @@
     <string name="state_empty_text">Ничего не найдено</string>
     <string name="state_error_message">Произошла ошибка</string>
     <string name="state_error_btn">Обновить</string>
+    <string name="folder">Папка</string>
+    <string name="project">Проект</string>
 </resources>

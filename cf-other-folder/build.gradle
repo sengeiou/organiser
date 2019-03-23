@@ -1,0 +1,8 @@
+apply from: '../commonFeatureModule.gradle'
+apply from: '../commonKaptModule.gradle'
+
+dependencies {
+    implementation project("$templatePrefix:base_feature")
+    implementation project("$templatePrefix:cf-bottom-bar")
+    implementation project("$templatePrefix:cf-folder-recycler-view")
+}
