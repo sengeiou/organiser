@@ -1,5 +1,6 @@
 package com.example.cm_main_folder
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,11 +23,13 @@ import javax.inject.Inject
 class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>() {
     @Inject
     lateinit var presenter: MainListPresenter
+
+    private val FOLDER_ID: Int = 1
+
     private var fab_addFolder: FloatingActionButton? = null
     private lateinit var projectsRv: RecyclerView
 
     private val folderItemController = FolderItemController {
-        presenter.newFragment()
     }
     private val easyAdapter = EasyAdapter()
 
@@ -57,8 +60,9 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
         )
     }
 
-    private fun initViews(view:View) {
+    private fun initViews(view: View) {
         projectsRv = view.findViewById(R.id.projects_folder_rv)
+        fab_addFolder = activity?.findViewById(R.id.projects_add_folder_fab)
     }
 
     override fun renderInternal(screenModel: MainFolderScreenModel) {
@@ -66,8 +70,10 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
     }
 
     private fun initListeners() {
+        Log.d(screenName, "CLICK")
         fab_addFolder?.setOnClickListener {
-            Log.d("PROJECTS", "ADD")
+            Log.d(screenName, "CLICK")
+            presenter.openAddFolderActivity(FOLDER_ID)
         }
 
     }

@@ -11,6 +11,12 @@ import ru.surfstudio.android.core.ui.navigation.activity.navigator.GlobalNavigat
 import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProvider
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProviderImpl
+import com.example.i_database.AppDatabase
+import androidx.room.Room
+
+
+
+
 
 @Module
 class AppModule(
@@ -25,6 +31,11 @@ class AppModule(
     @Provides
     @PerApplication
     internal fun provideContext(): Context = app
+
+    @Provides
+    @PerApplication
+    internal fun provideAppDatabase(context: Context): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "app-database")
+            .build()
 
     @Provides
     @PerApplication
@@ -46,6 +57,7 @@ class AppModule(
     @Provides
     @PerApplication
     internal fun provideSchedulerProvider(): SchedulersProvider = SchedulersProviderImpl()
+
 
     @Provides
     @PerApplication

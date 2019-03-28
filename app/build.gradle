@@ -43,6 +43,7 @@ dependencies {
     implementation project("$templatePrefix:f-splash")
     implementation project("$templatePrefix:cf-main-folder")
     implementation project("$templatePrefix:cf-other-folder")
+    implementation project("$templatePrefix:f-add-folder")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

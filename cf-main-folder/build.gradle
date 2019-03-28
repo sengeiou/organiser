@@ -5,5 +5,4 @@ dependencies {
     implementation project("$templatePrefix:base_feature")
     implementation project("$templatePrefix:cf-bottom-bar")
     implementation project("$templatePrefix:cf-folder-recycler-view")
-    androidTestImplementation 'junit:junit:4.12'
 }

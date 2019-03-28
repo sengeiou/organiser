@@ -2,6 +2,7 @@ package ru.surfstudio.standard.application.app.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.i_database.AppDatabase
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.GlobalNavigator
@@ -29,6 +30,8 @@ interface AppProxyDependencies {
     fun schedulerProvider(): SchedulersProvider
     fun stringsProvider(): StringsProvider
     fun globalNavigator(): GlobalNavigator
+    fun appDatabase(): AppDatabase
+
 
     fun fcmStorage(): FcmStorage
     fun pushHandler(): PushHandler

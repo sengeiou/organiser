@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.example.cm_main_folder.MainFolderFragmentView
 
 import dagger.Component
+import dagger.Module
+import dagger.Provides
 import ru.surfstudio.android.core.mvp.configurator.ScreenComponent
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.standard.ui.activity.di.ActivityComponent
@@ -24,6 +26,7 @@ class MainFolderScreenConfigurator(args: Bundle?) : FragmentScreenConfigurator(a
             .activityComponent(parentComponent)
             .fragmentScreenModule(fragmentScreenModule)
             .build()
+
 
     @PerScreen
     @Component(

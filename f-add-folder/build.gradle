@@ -1,0 +1,8 @@
+apply from: '../commonFeatureModule.gradle'
+apply from: '../commonKaptModule.gradle'
+
+dependencies {
+    implementation project("$templatePrefix:base_feature")
+    api project("$templatePrefix:i-folder")
+    api project("$templatePrefix:domain")
+}
