@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">cm-recyclerview</string>
+    <string name="empty_folder_text">Создайте свою первую папку или проект</string>
 </resources>

@@ -6,31 +6,32 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
+import ru.surfstudio.standard.domain.folder.Folder
 
 class FolderItemController(
-        private val onClickListener: () -> Unit
-) : BindableItemController<String, FolderItemController.Holder>() {
+        private val onClickListener: (Folder) -> Unit
+) : BindableItemController<Folder, FolderItemController.Holder>() {
 
-    override fun getItemId(data: String): String = data.hashCode().toString()
+    override fun getItemId(data: Folder): String = data.hashCode().toString()
 
     override fun createViewHolder(parent: ViewGroup?): FolderItemController.Holder = Holder(parent)
 
     inner class Holder(
             parent: ViewGroup?
-    ) : BindableViewHolder<String>(parent, R.layout.folder_item) {
+    ) : BindableViewHolder<Folder>(parent, R.layout.folder_item) {
 
 
-        private lateinit var data: String
+        private lateinit var data: Folder
         private val firstTv: TextView = itemView.findViewById(R.id.projects_folderName_tv)
 
         init {
             itemView.findViewById<LinearLayout>(R.id.folder_data_container).apply {
-                setOnClickListener { onClickListener() }
+                setOnClickListener { onClickListener(data) }
             }
         }
 
         @SuppressLint("SetTextI18n")
-        override fun bind(data: String) {
+        override fun bind(data: Folder) {
             this.data = data
             firstTv.text = "$data"
         }

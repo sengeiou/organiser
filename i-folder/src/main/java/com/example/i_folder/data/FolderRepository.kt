@@ -4,5 +4,5 @@ import io.reactivex.Observable
 import ru.surfstudio.standard.domain.folder.Folder
 
 interface FolderRepository {
-    fun addFolder(folder: Folder):Observable<Unit>
+    fun getFolders(parentFolderId:Int):Observable<List<Folder>>
 }

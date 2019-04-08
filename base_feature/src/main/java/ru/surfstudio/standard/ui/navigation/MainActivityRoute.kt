@@ -10,6 +10,6 @@ import ru.surfstudio.android.core.ui.navigation.feature.route.feature.ActivityCr
 class MainActivityRoute :ActivityCrossFeatureRoute() {
 
     override fun targetClassPath(): String {
-        return "ru.surfstudio.standard.f_main.MainActivityView"
+        return "ru.surfstudio.standard.f_main.main.MainActivityView"
     }
 }

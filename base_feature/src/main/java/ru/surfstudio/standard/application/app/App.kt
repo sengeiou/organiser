@@ -3,9 +3,12 @@ package ru.surfstudio.standard.application.app
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.multidex.MultiDexApplication
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
+import com.example.i_database.AppDatabase
+import com.facebook.stetho.Stetho
 import com.github.anrwatchdog.ANRWatchDog
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
@@ -20,8 +23,9 @@ import ru.surfstudio.android.notification.ui.PushEventListener
 import ru.surfstudio.android.template.base_feature.BuildConfig
 import ru.surfstudio.android.template.base_feature.R
 import ru.surfstudio.standard.application.app.di.AppInjector
-import ru.surfstudio.standard.ui.activity.DefaultActivityLifecycleCallbacks
 import ru.surfstudio.standard.f_debug.injector.DebugAppInjector
+import ru.surfstudio.standard.ui.activity.DefaultActivityLifecycleCallbacks
+import java.util.concurrent.Executors
 
 class App : MultiDexApplication() {
 
@@ -43,8 +47,13 @@ class App : MultiDexApplication() {
         }
 
         initFabric()
+        initStetho()
         initPushEventListener()
         DebugAppInjector.debugInteractor.onCreateApp(R.mipmap.ic_launcher)
+    }
+
+    private fun initStetho() {
+        Stetho.initializeWithDefaults(getApplicationContext())
     }
 
     private fun initFabric() {
@@ -62,7 +71,7 @@ class App : MultiDexApplication() {
      */
     private fun initAnrWatchDog() {
         ANRWatchDog().setReportMainThreadOnly()
-                .setANRListener{ RemoteLogger.logError(it) }
+                .setANRListener { RemoteLogger.logError(it) }
                 .start()
     }
 
@@ -88,7 +97,7 @@ class App : MultiDexApplication() {
     }
 
     private fun initPushEventListener() {
-        PushClickProvider.pushEventListener = object: PushEventListener {
+        PushClickProvider.pushEventListener = object : PushEventListener {
             override fun pushDismissListener(context: Context, intent: Intent) {
                 //todo
             }
@@ -98,4 +107,6 @@ class App : MultiDexApplication() {
             }
         }
     }
+
+
 }

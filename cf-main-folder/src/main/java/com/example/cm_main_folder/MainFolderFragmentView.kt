@@ -1,6 +1,5 @@
 package com.example.cm_main_folder
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,19 +9,25 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cm_main_folder.di.MainFolderScreenConfigurator
+import com.example.cm_recyclerview.EmptyFolderItemController
 import com.example.cm_recyclerview.FolderItemController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.surfstudio.android.core.mvp.fragment.BaseRenderableFragmentView
+import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
+import ru.surfstudio.standard.domain.folder.Folder
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**
  * Вью TODO
  */
 class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>() {
+
+
     @Inject
-    lateinit var presenter: MainListPresenter
+    lateinit var presenter: MainFolderPresenter
 
     private val FOLDER_ID: Int = 1
 
@@ -30,7 +35,11 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
     private lateinit var projectsRv: RecyclerView
 
     private val folderItemController = FolderItemController {
+        Log.d("myScreen",it.toString())
+        presenter.openFolder(it)
     }
+    private val noDataItemController = EmptyFolderItemController()
+
     private val easyAdapter = EasyAdapter()
 
     override fun getScreenName() = "ProjectsListFragmentView"
@@ -47,16 +56,18 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main_folder_list, container, false)
         initViews(view)
+        initRecycler()
         return view
+    }
+
+    private fun initRecycler() {
+        projectsRv.layoutManager = LinearLayoutManager(activity)
+        projectsRv.adapter = easyAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
         initListeners()
-        projectsRv.layoutManager = LinearLayoutManager(activity)
-        projectsRv.adapter = easyAdapter
-        val list = arrayListOf("Папка1", "asdas", "asdasd")
         easyAdapter.setItems(ItemList.create()
-                .addAll(list, folderItemController)
         )
     }
 
@@ -66,13 +77,13 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
     }
 
     override fun renderInternal(screenModel: MainFolderScreenModel) {
-
+        easyAdapter.setItems(ItemList.create()
+                .addIf(!screenModel.hasContent(), noDataItemController)
+                .addAll(screenModel.folderList,folderItemController)
+        )
     }
-
     private fun initListeners() {
-        Log.d(screenName, "CLICK")
         fab_addFolder?.setOnClickListener {
-            Log.d(screenName, "CLICK")
             presenter.openAddFolderActivity(FOLDER_ID)
         }
 

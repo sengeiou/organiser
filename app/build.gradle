@@ -63,6 +63,7 @@ dependencies {
     implementation "androidx.annotation:annotation:$androidxAnnotationVersion"
     implementation "androidx.appcompat:appcompat:$androidxVersion"
     implementation "com.annimon:stream:$annimonStreamVersion"
+    implementation  'com.facebook.stetho:stetho:1.5.0'
 }
 
 configurations.all {

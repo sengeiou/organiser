@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.f_add_folder.di.AddFolderScreenConfigurator
+import kotlinx.android.synthetic.main.activity_add_folder.*
 import kotlinx.android.synthetic.main.addfolder_toolbar.*
 import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
 import ru.surfstudio.standard.domain.folder.Folder
@@ -23,8 +24,10 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val folderName = addFolder_folderName_ET.text.toString()
+        val parentFolderId = getParentFolderId()
         if (item?.itemId == R.id.action_ok) {
-            presenter.addFolder(Folder(0,1,"Моя папка"))
+            presenter.addFolder(Folder(0,parentFolderId,folderName))
         }
         return true
     }
@@ -46,10 +49,11 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
             viewRecreated: Boolean
     ) {
         initToolbar()
-
         initListeners()
-        val user = intent.extras.getInt("FOLDER_ID")
-        Log.d(screenName, user.toString())
+    }
+
+    fun getParentFolderId():Int{
+        return intent.extras.getInt("FOLDER_ID")
     }
 
     private fun initToolbar() {

@@ -5,13 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toolbar
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cf_other_folder.di.OtherFolderScreenConfigurator
 import com.example.cm_recyclerview.FolderItemController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.other_toolbar.*
 import ru.surfstudio.android.core.mvp.fragment.BaseRenderableFragmentView
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
@@ -25,7 +26,12 @@ class OtherFolderFragmentView : BaseRenderableFragmentView<OtherFolderScreenMode
     lateinit var presenter: OtherFolderPresenter
     var fab_addFolder: FloatingActionButton? = null
     lateinit var projectsRv: RecyclerView
-    lateinit var tobar: Toolbar
+    lateinit var toolbar: androidx.appcompat.widget.Toolbar
+
+    lateinit var internalFolderNameTv:TextView
+
+    private val FOLDER_ID:String = "FOLDER_ID"
+    private val FOLDER_NAME:String = "FOLDER_NAME"
 
     private val folderItemController = FolderItemController {
         Log.d("CLICK", "CLICKED item")
@@ -44,23 +50,27 @@ class OtherFolderFragmentView : BaseRenderableFragmentView<OtherFolderScreenMode
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        initViews()
         val view = inflater.inflate(R.layout.fragment_other_folder_list, container, false)
-        projectsRv = view.findViewById(R.id.projects_folder_rv)
+        initViews(view)
+        initToolbar()
         return view
+    }
+
+    private fun initToolbar() {
+        internalFolderNameTv.text = arguments?.getString(FOLDER_NAME)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
         initListeners()
         projectsRv.layoutManager = LinearLayoutManager(activity)
         projectsRv.adapter = easyAdapter
-        val list = arrayListOf("Папка6", "asdas", "asdasd")
-        easyAdapter.setItems(ItemList.create()
-                .addAll(list, folderItemController)
-        )
+
     }
 
-    private fun initViews() {
+    private fun initViews(view:View) {
+        internalFolderNameTv = view.findViewById(R.id.internal_folder_name_tv)
+        projectsRv = view.findViewById(R.id.projects_folder_rv)
+        toolbar = view.findViewById(R.id.toolbar_support)
     }
 
     override fun renderInternal(screenModel: OtherFolderScreenModel) {
@@ -69,7 +79,6 @@ class OtherFolderFragmentView : BaseRenderableFragmentView<OtherFolderScreenMode
 
     private fun initListeners() {
         fab_addFolder?.setOnClickListener {
-            Log.d("PROJECTS", "ADD")
         }
 
     }

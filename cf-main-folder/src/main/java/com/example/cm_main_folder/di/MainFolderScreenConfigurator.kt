@@ -2,7 +2,11 @@ package com.example.cm_main_folder.di
 
 import android.os.Bundle
 import com.example.cm_main_folder.MainFolderFragmentView
-
+import com.example.i_folder.FolderInteractor
+import com.example.i_folder.FolderInteractorImp
+import com.example.i_folder.data.FolderRepository
+import com.example.i_folder.data.FolderRepositoryImp
+import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -31,7 +35,19 @@ class MainFolderScreenConfigurator(args: Bundle?) : FragmentScreenConfigurator(a
     @PerScreen
     @Component(
             dependencies = [ActivityComponent::class],
-            modules = [FragmentScreenModule::class]
+            modules = [FragmentScreenModule::class,MainFolderScreenModule::class]
     )
     interface MainFolderScreenComponent : ScreenComponent<MainFolderFragmentView>
+
+    @Module
+    interface MainFolderScreenModule{
+
+        @Binds
+        @PerScreen
+        fun provideFolderInteractor(folderInteractorImp: FolderInteractorImp):FolderInteractor
+
+        @Binds
+        @PerScreen
+        fun provideFolderRepository(folderRepositoryImp: FolderRepositoryImp):FolderRepository
+    }
 }

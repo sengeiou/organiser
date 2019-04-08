@@ -1,6 +1,5 @@
 apply from: '../commonInteractorModule.gradle'
 
-dependencies{
+dependencies {
     api project("$templatePrefix:i-database")
-    implementation project("$templatePrefix:domain")
 }

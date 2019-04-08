@@ -34,9 +34,7 @@ class AppModule(
 
     @Provides
     @PerApplication
-    internal fun provideAppDatabase(context: Context): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "app-database")
-            .build()
-
+    internal fun provideAppDatabase(context: Context): AppDatabase = AppDatabase.getInstance(context)
     @Provides
     @PerApplication
     internal fun provideApp(): Application = app
