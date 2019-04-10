@@ -1,4 +1,4 @@
-package com.example.cm_main_folder;
+package com.example.cf_main_folder;
 
 import org.junit.Test;
 

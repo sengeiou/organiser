@@ -1,4 +1,4 @@
-package com.example.cm_main_folder
+package com.example.cf_main_folder
 
 import android.util.Log
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
@@ -10,8 +10,7 @@ import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavig
 import ru.surfstudio.android.core.ui.navigation.fragment.FragmentNavigator
 import ru.surfstudio.standard.domain.folder.Folder
 import ru.surfstudio.standard.ui.navigation.AddFolderActivityRoute
-import ru.surfstudio.standard.ui.navigation.OtherFolderFragmentRoute
-import ru.surfstudio.standard.ui.placeholder.LoadState
+import ru.surfstudio.standard.ui.navigation.InternalFolderFragmentRoute
 import javax.inject.Inject
 
 class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePresenterDependency,
@@ -20,26 +19,41 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
                                               private val folderInteractor: FolderInteractor)
     : BasePresenter<MainFolderFragmentView>(basePresenterDependency) {
 
-    private val FOLDER_ID: Int = 1
+
+    private val FOLDER_ID: Long = 1
+    private val addFolderRoute = AddFolderActivityRoute(FOLDER_ID)
     private val sm = MainFolderScreenModel()
+    override fun onFirstLoad() {
+        super.onFirstLoad()
+        activityNavigator.observeResult<Long>(AddFolderActivityRoute())
+                .flatMap {
+                    Log.d("DEBUGMAIN",it.data.toString())
+                    folderInteractor.loadFolderById(it.data)
+
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{
+                    sm.folderList.add(it)
+                    Log.d("DEBUGMAIN",sm.folderList.toString())
+                    view.render(sm)
+                }
+    }
 
     override fun onLoad(viewRecreated: Boolean) {
         super.onLoad(viewRecreated)
         folderInteractor.loadFolders(FOLDER_ID)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{
-                    sm.folderList = it
-                    Log.d("myScreen","Вызов")
+                .subscribe {
+                    sm.folderList = it as ArrayList<Folder>
                     view.render(sm)
                 }
-
     }
 
-    fun openFolder(folder:Folder) {
-        fragmentNavigator.replace(OtherFolderFragmentRoute(folder), true, TRANSIT_FRAGMENT_OPEN)
+    fun openFolder(folder: Folder) {
+        fragmentNavigator.replace(InternalFolderFragmentRoute(folder), true, TRANSIT_FRAGMENT_OPEN)
     }
 
-    fun openAddFolderActivity(folderId: Int) {
-        activityNavigator.start(AddFolderActivityRoute(folderId))
+    fun openAddFolderActivity(folderId: Long) {
+        activityNavigator.startForResult(AddFolderActivityRoute(folderId))
     }
 }

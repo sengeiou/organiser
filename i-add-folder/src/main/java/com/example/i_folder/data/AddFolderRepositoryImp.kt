@@ -8,10 +8,8 @@ import io.reactivex.schedulers.Schedulers
 import ru.surfstudio.standard.domain.folder.Folder
 import javax.inject.Inject
 
-class AddFolderRepositoryImp @Inject constructor(val appDatabase: AppDatabase) : AddFolderRepository {
-    override fun addFolder(folder: Folder):Observable<Unit> {
-
-
+class AddFolderRepositoryImp @Inject constructor(private val appDatabase: AppDatabase) : AddFolderRepository {
+    override fun addFolder(folder: Folder): Observable<Long>? {
       return Observable.fromCallable{appDatabase.getFolderDao().insertFolder(folder) }
                 .subscribeOn(Schedulers.io())
     }

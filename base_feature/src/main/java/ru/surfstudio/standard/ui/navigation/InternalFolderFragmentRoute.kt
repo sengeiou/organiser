@@ -7,16 +7,16 @@ import ru.surfstudio.standard.ui.navigation.FeatureRoute.FragmentCrossFeatureWit
 
 
 
-class OtherFolderFragmentRoute(val folder:Folder):FragmentCrossFeatureWithParamsRoute() {
+class InternalFolderFragmentRoute(val folder:Folder):FragmentCrossFeatureWithParamsRoute() {
     override fun prepareBundle(): Bundle {
         val arguments = Bundle()
-        arguments.putInt("FOLDER_ID", folder.id)
+        arguments.putLong("FOLDER_ID", folder.id)
         arguments.putString("FOLDER_NAME", folder.name)
         return arguments
     }
 
     override fun targetClassPath(): String {
-        return "com.example.cf_other_folder.OtherFolderFragmentView"
+        return "com.example.cf_internal_folder.InternalFolderFragmentView"
     }
 
 }

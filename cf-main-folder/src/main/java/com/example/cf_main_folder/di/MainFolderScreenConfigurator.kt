@@ -1,7 +1,7 @@
-package com.example.cm_main_folder.di
+package com.example.cf_main_folder.di
 
 import android.os.Bundle
-import com.example.cm_main_folder.MainFolderFragmentView
+import com.example.cf_main_folder.MainFolderFragmentView
 import com.example.i_folder.FolderInteractor
 import com.example.i_folder.FolderInteractorImp
 import com.example.i_folder.data.FolderRepository

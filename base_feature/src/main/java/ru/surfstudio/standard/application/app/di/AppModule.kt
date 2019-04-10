@@ -13,9 +13,8 @@ import ru.surfstudio.android.rx.extension.scheduler.SchedulersProvider
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProviderImpl
 import com.example.i_database.AppDatabase
 import androidx.room.Room
-
-
-
+import com.example.i_database.FolderDao
+import ru.surfstudio.standard.domain.folder.Folder
 
 
 @Module
@@ -35,6 +34,11 @@ class AppModule(
     @Provides
     @PerApplication
     internal fun provideAppDatabase(context: Context): AppDatabase = AppDatabase.getInstance(context)
+
+    @Provides
+    @PerApplication
+    internal fun provideFolderDao(appDatabase: AppDatabase): FolderDao = appDatabase.getFolderDao()
+
     @Provides
     @PerApplication
     internal fun provideApp(): Application = app

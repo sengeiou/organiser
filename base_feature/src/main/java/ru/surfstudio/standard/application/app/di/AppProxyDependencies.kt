@@ -3,6 +3,7 @@ package ru.surfstudio.standard.application.app.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.i_database.AppDatabase
+import com.example.i_database.FolderDao
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.GlobalNavigator
@@ -31,6 +32,7 @@ interface AppProxyDependencies {
     fun stringsProvider(): StringsProvider
     fun globalNavigator(): GlobalNavigator
     fun appDatabase(): AppDatabase
+    fun folderDao(): FolderDao
 
 
     fun fcmStorage(): FcmStorage

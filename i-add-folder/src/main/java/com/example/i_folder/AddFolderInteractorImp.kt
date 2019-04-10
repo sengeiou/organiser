@@ -6,7 +6,7 @@ import ru.surfstudio.standard.domain.folder.Folder
 import javax.inject.Inject
 
 class AddFolderInteractorImp @Inject constructor(val folderRepository: AddFolderRepository) : AddFolderInteractor {
-    override fun addFolder(folder: Folder): Observable<Unit> {
+    override fun addFolder(folder: Folder): Observable<Long>? {
         return folderRepository.addFolder(folder)
     }
 

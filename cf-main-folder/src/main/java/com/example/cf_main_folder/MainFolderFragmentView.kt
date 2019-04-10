@@ -1,4 +1,4 @@
-package com.example.cm_main_folder
+package com.example.cf_main_folder
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cm_main_folder.di.MainFolderScreenConfigurator
+import com.example.cf_main_folder.di.MainFolderScreenConfigurator
 import com.example.cm_recyclerview.EmptyFolderItemController
 import com.example.cm_recyclerview.FolderItemController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,7 +29,7 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
     @Inject
     lateinit var presenter: MainFolderPresenter
 
-    private val FOLDER_ID: Int = 1
+    private val FOLDER_ID: Long = 1
 
     private var fab_addFolder: FloatingActionButton? = null
     private lateinit var projectsRv: RecyclerView

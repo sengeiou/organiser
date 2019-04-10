@@ -4,6 +4,6 @@ import ru.surfstudio.standard.ui.navigation.FeatureRoute.FragmentCrossFeatureRou
 
 class MainFolderFragmentRoute: FragmentCrossFeatureRoute() {
     override fun targetClassPath(): String {
-        return "com.example.cm_main_folder.MainFolderFragmentView"
+        return "com.example.cf_main_folder.MainFolderFragmentView"
     }
 }

@@ -2,7 +2,6 @@ package com.example.f_add_folder
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.f_add_folder.di.AddFolderScreenConfigurator
@@ -27,7 +26,7 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
         val folderName = addFolder_folderName_ET.text.toString()
         val parentFolderId = getParentFolderId()
         if (item?.itemId == R.id.action_ok) {
-            presenter.addFolder(Folder(0,parentFolderId,folderName))
+            presenter.addFolder(Folder(0, parentFolderId, folderName))
         }
         return true
     }
@@ -52,8 +51,8 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
         initListeners()
     }
 
-    fun getParentFolderId():Int{
-        return intent.extras.getInt("FOLDER_ID")
+    fun getParentFolderId(): Long {
+        return intent?.extras?.getLong("FOLDER_ID")!!
     }
 
     private fun initToolbar() {
@@ -64,6 +63,9 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
     }
 
     override fun renderInternal(screenModel: AddFolderScreenModel) {
+        if (!screenModel.isValid()){
+            addFolder_folderName_ET.error = "Вы ничего не ввели"
+        }
 
     }
 

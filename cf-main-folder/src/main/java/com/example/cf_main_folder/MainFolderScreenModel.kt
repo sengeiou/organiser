@@ -1,4 +1,4 @@
-package com.example.cm_main_folder
+package com.example.cf_main_folder
 
 import ru.surfstudio.android.core.mvp.model.LdsScreenModel
 import ru.surfstudio.android.core.mvp.model.ScreenModel
@@ -8,8 +8,7 @@ import ru.surfstudio.standard.domain.folder.Folder
 /**
  * Модель [ProjectsListFragmentView].
  */
-data class MainFolderScreenModel(var folderList:List<Folder> = listOf(), val loading:Boolean = true) : LdsScreenModel() {
+data class MainFolderScreenModel(var folderList:ArrayList<Folder> = arrayListOf(), val loading:Boolean = true) : ScreenModel() {
 
-    class Loading()
     fun hasContent():Boolean = folderList.isNotEmpty()
 }
