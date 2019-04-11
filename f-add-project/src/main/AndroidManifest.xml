@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.f_add_project">
+
+    <application
+        android:allowBackup="false"
+        android:theme="@style/AppTheme">
+        <activity android:name=".AddProjectActivityView" />
+    </application>
+
+</manifest>

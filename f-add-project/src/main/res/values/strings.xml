@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">f-add-project</string>
+    <string name="folder_name">Название</string>
+    <string name="create_project">Создание проекта</string>
+    <string name="begin">Начало</string>
+    <string name="not_set">Не задано</string>
+    <string name="end">Окончание</string>
+
+    <string-array name="date_item">
+        <item>Не задано</item>
+    </string-array>
+</resources>

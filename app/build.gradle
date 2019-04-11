@@ -44,6 +44,7 @@ dependencies {
     implementation project("$templatePrefix:cf-main-folder")
     implementation project("$templatePrefix:cf-internal-folder")
     implementation project("$templatePrefix:f-add-folder")
+    implementation project("$templatePrefix:f-add-project")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

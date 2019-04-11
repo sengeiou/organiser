@@ -8,7 +8,7 @@ import ru.surfstudio.standard.domain.folder.Folder
 /**
  * Модель [ProjectsListFragmentView].
  */
-data class MainFolderScreenModel(var folderList:ArrayList<Folder> = arrayListOf(), val loading:Boolean = true) : ScreenModel() {
+data class MainFolderScreenModel(var folderList:ArrayList<Folder> = arrayListOf(), var loading:Boolean = true) : ScreenModel() {
 
     fun hasContent():Boolean = folderList.isNotEmpty()
 }

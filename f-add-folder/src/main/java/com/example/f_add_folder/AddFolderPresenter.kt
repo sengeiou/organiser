@@ -27,16 +27,15 @@ class AddFolderPresenter @Inject constructor(baseDependency: BasePresenterDepend
                     ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe {
                         activityNavigator.finishWithResult(AddFolderActivityRoute(), it)
-                        Log.d("myScreen", it.toString())
                     }
         }
     }
 
-    fun validate(folder: Folder): Boolean {
-        if (folder.name.isEmpty()) {
-            sm.validate = false
-            view.render(sm)
-            return false
-        } else return true
+  private  fun validate(folder: Folder): Boolean {
+      return if (folder.name.isEmpty()) {
+          sm.validate = false
+          view.render(sm)
+          false
+      } else true
     }
 }
