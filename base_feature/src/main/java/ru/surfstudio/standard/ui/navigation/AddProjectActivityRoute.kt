@@ -15,12 +15,12 @@ class AddProjectActivityRoute : ActivityCrossWithParamsRoute, SupportOnActivityR
         //empty
     }
     override fun parseResultIntent(intent: Intent?): Long? {
-        return intent?.getLongExtra("ADDED_FOLDER_ID",1)
+        return intent?.getLongExtra("ADDED_PROJECT_ID",1)
     }
 
-    override fun prepareResultIntent(folderId: Long?): Intent? {
+    override fun prepareResultIntent(projectId: Long?): Intent? {
         val intent = Intent()
-        return intent.putExtra("ADDED_FOLDER_ID", folderId)
+        return intent.putExtra("ADDED_PROJECT_ID", projectId)
     }
 
     override fun getRequestCode(): Int {

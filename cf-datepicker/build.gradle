@@ -3,6 +3,4 @@ apply from: '../commonKaptModule.gradle'
 
 dependencies {
     implementation project("$templatePrefix:base_feature")
-    implementation project("$templatePrefix:i-add-project")
-    implementation project("$templatePrefix:cf-datepicker")
 }

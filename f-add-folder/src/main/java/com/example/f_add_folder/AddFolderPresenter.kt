@@ -24,7 +24,6 @@ class AddFolderPresenter @Inject constructor(baseDependency: BasePresenterDepend
     fun addFolder(folder: Folder) {
         if (validate(folder)) {
             folderInteractor.addFolder(folder)
-                    ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe {
                         activityNavigator.finishWithResult(AddFolderActivityRoute(), it)
                     }

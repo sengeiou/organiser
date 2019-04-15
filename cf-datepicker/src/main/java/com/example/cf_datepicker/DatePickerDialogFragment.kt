@@ -1,13 +1,12 @@
-package com.example.f_add_project.datepicker
+package com.example.cf_datepicker
 
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.example.f_add_project.R
 import java.util.*
 
-class DatePickerFragment : DialogFragment() {
+class DatePickerDialogFragment : DialogFragment() {
     private var listener: DatePickerDialog.OnDateSetListener? = null
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()

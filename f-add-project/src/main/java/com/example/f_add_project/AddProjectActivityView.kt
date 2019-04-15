@@ -7,12 +7,14 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.DatePicker
-import com.example.f_add_project.datepicker.DatePickerFragment
+import com.example.cf_datepicker.DatePickerDialogFragment
 import com.example.f_add_project.di.AddProjectScreenConfigurator
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.add_project_toolbar.*
 import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
 import ru.surfstudio.standard.domain.folder.Project
+import java.sql.Date
+import java.util.*
 import javax.inject.Inject
 
 
@@ -22,7 +24,7 @@ import javax.inject.Inject
 class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>() {
 
     val beginDateDialogListener =
-            DatePickerDialog.OnDateSetListener { datePicker: DatePicker, year: Int, month: Int, day: Int ->
+            DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                val monthFromOne = month+1
                 addProject_begindate_tv.text = "$day/$monthFromOne/$year"
             }
@@ -61,7 +63,8 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_ok) {
-            presenter.addProject(Project(0, 1, "первый проект"))
+            val date = GregorianCalendar(2017,1,2).time
+            presenter.addProject(Project(0, 1, "первый проект",date,date))
         }
         if (item?.itemId == android.R.id.home) {
             onBackPressed()
@@ -83,12 +86,11 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
     private fun initListeners() {
         beginDateTvListener()
         endDateTvListener()
-        backButtonListener()
     }
 
     private fun endDateTvListener() {
         addProject_enddate_tv.setOnClickListener {
-            val endDateFragment = DatePickerFragment()
+            val endDateFragment = DatePickerDialogFragment()
             endDateFragment.setListener(endDateDialogListener)
             endDateFragment.show(supportFragmentManager, "datePicker")
         }
@@ -96,15 +98,10 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
 
     private fun beginDateTvListener() {
         addProject_begindate_tv.setOnClickListener {
-            val beginDateFragment = DatePickerFragment()
+            val beginDateFragment = DatePickerDialogFragment()
             beginDateFragment.setListener(beginDateDialogListener)
             beginDateFragment.show(supportFragmentManager, "datePicker")
         }
     }
 
-    private fun backButtonListener() {
-        add_project_toolbar.setNavigationOnClickListener {
-            Log.d("MYLIST","LISTLIST")
-        }
-    }
 }

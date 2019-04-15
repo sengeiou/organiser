@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cf_main_folder.di.MainFolderScreenConfigurator
 import com.example.cm_recyclerview.EmptyFolderItemController
 import com.example.cm_recyclerview.FolderItemController
+import com.example.cm_recyclerview.ProjectItemController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.surfstudio.android.core.mvp.fragment.BaseRenderableFragmentView
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
@@ -38,7 +39,9 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
 
 
     private lateinit var projectsRv: RecyclerView
+private val projectItemController = ProjectItemController{
 
+}
     private val folderItemController = FolderItemController {
         Log.d("myScreen",it.toString())
         presenter.openFolder(it)
@@ -87,6 +90,7 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
         easyAdapter.setItems(ItemList.create()
                 .addIf(!screenModel.hasContent(), noDataItemController)
                 .addAll(screenModel.folderList,folderItemController)
+                .addAll(screenModel.projectList,projectItemController)
         )
         if(screenModel.loading){
             progressBar.visibility = View.VISIBLE

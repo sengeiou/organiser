@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import ru.surfstudio.standard.domain.folder.Folder
 import ru.surfstudio.standard.domain.folder.Project
+import java.util.*
 
 @Dao
 interface ProjectDao {
@@ -15,9 +16,9 @@ interface ProjectDao {
     @Query("SELECT * FROM project WHERE parentFolderId LIKE :parentFolderId")
     fun getAllProjectsWithParentFolderId(parentFolderId: Long): List<Project>
 
-    @Query("SELECT * FROM folder WHERE id LIKE :projectId")
+    @Query("SELECT * FROM project WHERE id LIKE :projectId")
     fun getProjectById(projectId: Long): Project
 
-    @Query("SELECT * FROM folder")
+    @Query("SELECT * FROM project")
     fun getAllProjects(): List<Project>
 }
