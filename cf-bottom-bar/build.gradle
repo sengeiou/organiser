@@ -1,0 +1,7 @@
+apply from: '../commonFeatureModule.gradle'
+apply from: '../commonKaptModule.gradle'
+
+dependencies {
+    implementation project("$templatePrefix:base_feature")
+    implementation 'com.android.support:design:28.0.0'
+}

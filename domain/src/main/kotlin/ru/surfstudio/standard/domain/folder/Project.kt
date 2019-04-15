@@ -12,8 +12,8 @@ data class Project(@PrimaryKey(autoGenerate = true)
                    var id: Long,
                    var parentFolderId: Long,
                    var name: String,
-                   var beginDate: Date,
-                   var endDate: Date
+                   var beginDate: Date?,
+                   var endDate: Date?
 ) : Serializable {
 
 }

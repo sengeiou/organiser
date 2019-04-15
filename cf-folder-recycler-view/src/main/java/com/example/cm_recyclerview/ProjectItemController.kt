@@ -32,8 +32,11 @@ class ProjectItemController(
         override fun bind(project: Project) {
             this.project = project
             projectName.text = project.toString()
-            val dateBegin = SimpleDateFormat("dd/MM/yy").format(project.beginDate)
-            projectDate.text = dateBegin
+            project.beginDate?.let {
+                val dateBegin = SimpleDateFormat("dd/MM/yy").format(it)
+                projectDate.text = dateBegin
+            }
+
         }
     }
 }

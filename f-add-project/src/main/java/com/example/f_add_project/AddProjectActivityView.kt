@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.add_project_toolbar.*
 import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
 import ru.surfstudio.standard.domain.folder.Project
-import java.sql.Date
 import java.util.*
 import javax.inject.Inject
 
@@ -26,18 +25,22 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
     val beginDateDialogListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                val monthFromOne = month+1
+                BEGIN_DATE = GregorianCalendar(year,month,day).time
                 addProject_begindate_tv.text = "$day/$monthFromOne/$year"
             }
     val endDateDialogListener =
             DatePickerDialog.OnDateSetListener { datePicker: DatePicker, year: Int, month: Int, day: Int ->
                 val monthFromOne = month+1
+                END_DATE = GregorianCalendar(year,month,day).time
                 addProject_enddate_tv.text = "$day/$monthFromOne/$year"
             }
 
     @Inject
     lateinit var presenter: AddProjectPresenter
 
-    private val DIALOG_DATE = 1
+    var BEGIN_DATE:Date? = null
+    var END_DATE:Date? = null
+
 
     override fun getScreenName() = "AddProjectActivityView"
 
@@ -56,6 +59,10 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
         initToolbar()
     }
 
+    private fun getParentFolderId():Long {
+       return intent?.extras?.getLong("FOLDER_ID")!!
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
@@ -63,8 +70,8 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_ok) {
-            val date = GregorianCalendar(2017,1,2).time
-            presenter.addProject(Project(0, 1, "первый проект",date,date))
+            val projectName = addProject_projectName_ET.text.toString()
+            presenter.addProject(Project(0, getParentFolderId(), projectName,BEGIN_DATE,END_DATE))
         }
         if (item?.itemId == android.R.id.home) {
             onBackPressed()

@@ -28,6 +28,9 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
         if (item?.itemId == R.id.action_ok) {
             presenter.addFolder(Folder(0, parentFolderId, folderName))
         }
+        if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+        }
         return true
     }
 
@@ -70,12 +73,6 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
     }
 
     private fun initListeners() {
-        backButtonListener()
     }
 
-    private fun backButtonListener() {
-        addFolder_toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-    }
 }
