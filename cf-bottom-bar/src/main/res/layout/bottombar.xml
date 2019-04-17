@@ -12,7 +12,7 @@
         android:clickable="true"
         app:backgroundTint="@color/ColorApp"
         app:fabAlignmentMode="center"
-        app:navigationIcon="@drawable/baseline_menu_black_36" />
+    />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/projects_add_fab"

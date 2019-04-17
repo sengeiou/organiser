@@ -1,7 +1,8 @@
-package com.example.cm_recyclerview
+package com.example.cm_recyclerview.project
 
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.cm_recyclerview.R
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 import ru.surfstudio.standard.domain.folder.Project
@@ -33,10 +34,13 @@ class ProjectItemController(
             this.project = project
             projectName.text = project.toString()
             project.beginDate?.let {
-                val dateBegin = SimpleDateFormat("dd/MM/yy").format(it)
-                projectDate.text = dateBegin
+                val dateBegin = SimpleDateFormat("dd.MM.yy").format(it)
+                projectDate.text = "C $dateBegin"
             }
-
+            project.endDate?.let {
+                val dateEnd = SimpleDateFormat("dd.MM.yy").format(it)
+                projectDate.append(" до $dateEnd")
+            }
         }
     }
 }

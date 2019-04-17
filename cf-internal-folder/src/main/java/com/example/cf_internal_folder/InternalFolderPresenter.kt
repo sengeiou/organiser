@@ -10,7 +10,9 @@ import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavig
 import ru.surfstudio.android.core.ui.navigation.fragment.FragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.standard.domain.folder.Folder
+import ru.surfstudio.standard.domain.folder.Project
 import ru.surfstudio.standard.ui.navigation.AddFolderActivityRoute
+import ru.surfstudio.standard.ui.navigation.AddProjectActivityRoute
 import ru.surfstudio.standard.ui.navigation.InternalFolderFragmentRoute
 import javax.inject.Inject
 
@@ -22,16 +24,18 @@ class InternalFolderPresenter @Inject constructor(basePresenterDependency: BaseP
     : BasePresenter<InternalFolderFragmentView>(basePresenterDependency) {
 
     private val sm = InternalFolderScreenModel()
-
+    private val INTERNAL_FOLDER_PRESENTER = "InternalFolderPresenter"
     override fun onLoad(viewRecreated: Boolean) {
         super.onLoad(viewRecreated)
     }
 
-    override fun onFirstLoad() {
-        super.onFirstLoad()
+
+    fun openAddFolderActivity(folderId: Long) {
         observeToAddFolderActivity()
+        activityNavigator.startForResult(AddFolderActivityRoute(folderId))
     }
-    private fun observeToAddFolderActivity(){
+
+    private fun observeToAddFolderActivity() {
         activityNavigator.observeResult<Long>(AddFolderActivityRoute())
                 .flatMap {
                     folderInteractor.loadFolderById(it.data)
@@ -43,21 +47,56 @@ class InternalFolderPresenter @Inject constructor(basePresenterDependency: BaseP
                 }
     }
 
-    fun loadFolders(parentFolderId: Long) {
+
+    fun openAddProjectActivity(folderId: Long?) {
+        observeToAddProjectActivity()
+        activityNavigator.startForResult(AddProjectActivityRoute(folderId))
+    }
+
+    private fun observeToAddProjectActivity() {
+        activityNavigator.observeResult<Long>(AddProjectActivityRoute())
+                .flatMap {
+                    folderInteractor.loadProjectById(it.data)
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    sm.projectList.add(it)
+                    view.render(sm)
+                }, {
+                    Log.e(INTERNAL_FOLDER_PRESENTER, it.message)
+                }
+                )
+    }
+
+    fun openFolder(folder: Folder) {
+        fragmentNavigator.replace(InternalFolderFragmentRoute(folder), true, FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+    }
+
+    fun loadFoldersAndProject(parentFolderId: Long) {
+        loadFolders(parentFolderId)
+        loadProjects(parentFolderId)
+    }
+
+    private fun loadProjects(parentFolderId: Long) {
+        folderInteractor.loadProjects(parentFolderId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    sm.projectList = it as ArrayList<Project>
+                    view.render(sm)
+                }, {
+                    Log.e(INTERNAL_FOLDER_PRESENTER, it.message)
+                })
+    }
+
+    private fun loadFolders(parentFolderId: Long) {
         folderInteractor.loadFolders(parentFolderId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     sm.folderList = it as ArrayList<Folder>
                     sm.loading = false
                     view.render(sm)
-                }
-    }
-
-    fun openAddFolderActivity(folderId: Long) {
-        activityNavigator.startForResult(AddFolderActivityRoute(folderId))
-    }
-
-    fun openFolder(folder:Folder) {
-        fragmentNavigator.replace(InternalFolderFragmentRoute(folder), true, FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                }, {
+                    Log.e(INTERNAL_FOLDER_PRESENTER, it.message)
+                })
     }
 }

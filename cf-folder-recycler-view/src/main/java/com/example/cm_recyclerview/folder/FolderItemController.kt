@@ -1,9 +1,10 @@
-package com.example.cm_recyclerview
+package com.example.cm_recyclerview.folder
 
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.cm_recyclerview.R
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 import ru.surfstudio.standard.domain.folder.Folder
@@ -14,7 +15,7 @@ class FolderItemController(
 
     override fun getItemId(data: Folder): String = data.hashCode().toString()
 
-    override fun createViewHolder(parent: ViewGroup?): FolderItemController.Holder = Holder(parent)
+    override fun createViewHolder(parent: ViewGroup?): Holder = Holder(parent)
 
     inner class Holder(
             parent: ViewGroup?

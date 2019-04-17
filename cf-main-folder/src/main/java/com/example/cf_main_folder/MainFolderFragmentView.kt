@@ -10,16 +10,15 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cf_main_folder.di.MainFolderScreenConfigurator
-import com.example.cm_recyclerview.EmptyFolderItemController
-import com.example.cm_recyclerview.FolderItemController
-import com.example.cm_recyclerview.ProjectItemController
+import com.example.cm_recyclerview.folder.HeaderFolderItemController
+import com.example.cm_recyclerview.project.HeaderProjectItemController
+import com.example.cm_recyclerview.project.ProjectItemController
+import com.example.cm_recyclerview.folder.EmptyFolderItemController
+import com.example.cm_recyclerview.folder.FolderItemController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.surfstudio.android.core.mvp.fragment.BaseRenderableFragmentView
-import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
-import ru.surfstudio.standard.domain.folder.Folder
-import java.util.ArrayList
 import javax.inject.Inject
 
 /**
@@ -32,21 +31,23 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
     lateinit var presenter: MainFolderPresenter
 
     private val FOLDER_ID: Long = 1
-   lateinit var progressBar: ProgressBar
+    lateinit var progressBar: ProgressBar
 
     private var fab_addFolder: FloatingActionButton? = null
     private var fab_addProject: FloatingActionButton? = null
 
 
     private lateinit var projectsRv: RecyclerView
-private val projectItemController = ProjectItemController{
+    private val projectItemController = ProjectItemController {
 
-}
+    }
     private val folderItemController = FolderItemController {
-        Log.d("myScreen",it.toString())
+        Log.d("myScreen", it.toString())
         presenter.openFolder(it)
     }
     private val noDataItemController = EmptyFolderItemController()
+    private val folderHeaderItemController = HeaderFolderItemController()
+    private val projectHeaderItemController = HeaderProjectItemController()
 
     private val easyAdapter = EasyAdapter()
 
@@ -88,14 +89,18 @@ private val projectItemController = ProjectItemController{
 
     override fun renderInternal(screenModel: MainFolderScreenModel) {
         easyAdapter.setItems(ItemList.create()
+                .addIf(screenModel.hasFolders(),folderHeaderItemController)
                 .addIf(!screenModel.hasContent(), noDataItemController)
-                .addAll(screenModel.folderList,folderItemController)
-                .addAll(screenModel.projectList,projectItemController)
+                .addAll(screenModel.folderList, folderItemController)
+                .addIf(screenModel.hasProjects(),projectHeaderItemController)
+                .addAll(screenModel.projectList, projectItemController)
+
         )
-        if(screenModel.loading){
+        if (screenModel.loading) {
             progressBar.visibility = View.VISIBLE
-        }else progressBar.visibility = View.INVISIBLE
+        } else progressBar.visibility = View.INVISIBLE
     }
+
     private fun initListeners() {
         fab_addFolder?.setOnClickListener {
             presenter.openAddFolderActivity(FOLDER_ID)

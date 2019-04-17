@@ -1,9 +1,6 @@
 package com.example.f_add_project
 
-import android.util.AndroidException
-import android.util.Log
 import com.example.i_add_project.AddProjectInteractor
-import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.surfstudio.android.core.mvp.presenter.BasePresenter
 import ru.surfstudio.android.core.mvp.presenter.BasePresenterDependency
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavigator
@@ -17,15 +14,26 @@ class AddProjectPresenter @Inject constructor(baseDependency: BasePresenterDepen
                                               private val addProjectInteractor: AddProjectInteractor,
                                               private val activityNavigator: ActivityNavigator)
     : BasePresenter<AddProjectActivityView>(baseDependency) {
+    private val sm = AddProjectScreenModel()
 
     override fun onLoad(viewRecreated: Boolean) {
         super.onLoad(viewRecreated)
     }
 
-    fun addProject(project:Project){
-        addProjectInteractor.addProject(project)
-                .subscribe{
-                activityNavigator.finishWithResult(AddProjectActivityRoute(),it)
-                }
+    fun addProject(project: Project) {
+        if (validate(project)) {
+            addProjectInteractor.addProject(project)
+                    .subscribe {
+                        activityNavigator.finishWithResult(AddProjectActivityRoute(), it)
+                    }
+        }
+    }
+
+    private fun validate(project: Project): Boolean {
+        return if (project.name.isEmpty()) {
+            sm.validate = false
+            view.render(sm)
+            false
+        } else true
     }
 }

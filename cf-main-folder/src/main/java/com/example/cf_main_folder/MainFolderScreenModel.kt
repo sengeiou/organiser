@@ -14,4 +14,6 @@ data class MainFolderScreenModel(var folderList:ArrayList<Folder> = arrayListOf(
                                  var loading:Boolean = true) : ScreenModel() {
 
     fun hasContent():Boolean = folderList.isNotEmpty() || projectList.isNotEmpty()
+    fun hasFolders():Boolean = folderList.isNotEmpty()
+    fun hasProjects():Boolean = projectList.isNotEmpty()
 }

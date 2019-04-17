@@ -87,7 +87,9 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
     }
 
     override fun renderInternal(screenModel: AddProjectScreenModel) {
-
+        if (!screenModel.isValid()){
+            addProject_projectName_ET.error = "Вы ничего не ввели"
+        }
     }
 
     private fun initListeners() {

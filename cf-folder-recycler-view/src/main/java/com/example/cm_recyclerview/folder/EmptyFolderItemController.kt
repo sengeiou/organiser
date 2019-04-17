@@ -1,6 +1,7 @@
-package com.example.cm_recyclerview
+package com.example.cm_recyclerview.folder
 
 import android.view.ViewGroup
+import com.example.cm_recyclerview.R
 import ru.surfstudio.android.easyadapter.controller.NoDataItemController
 import ru.surfstudio.android.easyadapter.holder.BaseViewHolder
 
