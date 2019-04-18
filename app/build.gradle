@@ -41,8 +41,9 @@ dependencies {
     implementation project("$templatePrefix:f-auth")
     implementation project("$templatePrefix:f-main")
     implementation project("$templatePrefix:f-splash")
-    implementation project("$templatePrefix:cf-main-folder")
-    implementation project("$templatePrefix:cf-internal-folder")
+    implementation project("$templatePrefix:f-main-folder")
+    implementation project("$templatePrefix:f-internal-folder")
+    implementation project("$templatePrefix:f-project")
     implementation project("$templatePrefix:f-add-folder")
     implementation project("$templatePrefix:f-add-project")
 
