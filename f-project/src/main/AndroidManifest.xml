@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ProjectActivityView" />
+        <activity android:name=".fragments.complete.CompleteTasksActivityView" />
     </application>
 
 </manifest>

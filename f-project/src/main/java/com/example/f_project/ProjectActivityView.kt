@@ -2,16 +2,17 @@ package com.example.f_project
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
 import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
 import javax.inject.Inject
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.PagerAdapter
 import com.example.cf_project_recycler_view.TaskItemController
+import com.example.f_project.adapter.TasksPagerAdapter
+import com.example.f_project.di.ProjectScreenConfigurator
+import kotlinx.android.synthetic.main.activity_project.*
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
 
@@ -43,18 +44,18 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
             viewRecreated: Boolean
     ) {
         initViews()
+        initViewPager()
         initListeners()
-        tasksRecyclerView.layoutManager = LinearLayoutManager(this)
-        tasksRecyclerView.adapter = easyAdapter
-        easyAdapter.setItems(ItemList.create()
-                .addIf(true,itemController)
+    }
 
-        )
-
+    private fun initViewPager() {
+        val pagerDapater = TasksPagerAdapter(supportFragmentManager)
+        project_viewpager.adapter = pagerDapater
+        project_tabs.setupWithViewPager(project_viewpager)
     }
 
     private fun initViews() {
-        tasksRecyclerView = findViewById(R.id.project_tesks_rv)
+
         val pb = findViewById<ProgressBar>(R.id.project_progress_pb)
         val tv = findViewById<TextView>(R.id.project_name_tv)
         pb.progress = 50
