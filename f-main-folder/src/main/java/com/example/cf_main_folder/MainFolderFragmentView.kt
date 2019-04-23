@@ -1,7 +1,6 @@
 package com.example.cf_main_folder
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,11 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cf_main_folder.di.MainFolderScreenConfigurator
+import com.example.cm_recyclerview.folder.EmptyFolderItemController
+import com.example.cm_recyclerview.folder.FolderItemController
 import com.example.cm_recyclerview.folder.HeaderFolderItemController
 import com.example.cm_recyclerview.project.HeaderProjectItemController
 import com.example.cm_recyclerview.project.ProjectItemController
-import com.example.cm_recyclerview.folder.EmptyFolderItemController
-import com.example.cm_recyclerview.folder.FolderItemController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.surfstudio.android.core.mvp.fragment.BaseRenderableFragmentView
 import ru.surfstudio.android.easyadapter.EasyAdapter
@@ -39,7 +38,7 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
 
     private lateinit var projectsRv: RecyclerView
     private val projectItemController = ProjectItemController {
-
+        presenter.openProject(it.id)
     }
     private val folderItemController = FolderItemController {
         presenter.openFolder(it)
@@ -88,10 +87,10 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
 
     override fun renderInternal(screenModel: MainFolderScreenModel) {
         easyAdapter.setItems(ItemList.create()
-                .addIf(screenModel.hasFolders(),folderHeaderItemController)
+                .addIf(screenModel.hasFolders(), folderHeaderItemController)
                 .addIf(!screenModel.hasContent(), noDataItemController)
                 .addAll(screenModel.folderList, folderItemController)
-                .addIf(screenModel.hasProjects(),projectHeaderItemController)
+                .addIf(screenModel.hasProjects(), projectHeaderItemController)
                 .addAll(screenModel.projectList, projectItemController)
 
         )

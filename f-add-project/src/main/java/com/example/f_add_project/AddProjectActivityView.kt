@@ -26,13 +26,13 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                val monthFromOne = month+1
                 BEGIN_DATE = GregorianCalendar(year,month,day).time
-                addProject_begindate_tv.text = "$day/$monthFromOne/$year"
+                addProject_begindate_tv.text = "$day.$monthFromOne.$year"
             }
     val endDateDialogListener =
             DatePickerDialog.OnDateSetListener { datePicker: DatePicker, year: Int, month: Int, day: Int ->
                 val monthFromOne = month+1
                 END_DATE = GregorianCalendar(year,month,day).time
-                addProject_enddate_tv.text = "$day/$monthFromOne/$year"
+                addProject_enddate_tv.text = "$day.$monthFromOne.$year"
             }
 
     @Inject
@@ -71,7 +71,8 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_ok) {
             val projectName = addProject_projectName_ET.text.toString()
-            presenter.addProject(Project(0, getParentFolderId(), projectName,BEGIN_DATE,END_DATE))
+            val projectDescription = addProject_projectDescription_ET.text.toString()
+            presenter.addProject(Project(0, getParentFolderId(), projectName,projectDescription,BEGIN_DATE,END_DATE))
         }
         if (item?.itemId == android.R.id.home) {
             onBackPressed()

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">f-add-task</string>
+    <string name="add_task">Создание задачи</string>
+    <string-array name="remindlist">
+        <item>Не напоминать</item>
+        <item>В момент наступления</item>
+        <item>За 5 минут до</item>
+        <item>За 15 минут до</item>
+        <item>За 30 минут до</item>
+        <item>За 1 час до</item>
+        <item>За 2 часа до</item>
+        <item>За 3 часа до</item>
+        <item>За 1 день до</item>
+        <item>За 2 дня до</item>
+    </string-array>
+
+    <string-array name="repeatlist">
+        <item>Не повторять</item>
+        <item>Каждый день</item>
+        <item>Еженедельно</item>
+        <item>Ежемесячно</item>
+    </string-array>
+</resources>

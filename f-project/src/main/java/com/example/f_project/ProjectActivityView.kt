@@ -2,19 +2,16 @@ package com.example.f_project
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
-import javax.inject.Inject
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import com.example.cf_project_recycler_view.TaskItemController
 import com.example.f_project.adapter.TasksPagerAdapter
 import com.example.f_project.di.ProjectScreenConfigurator
 import kotlinx.android.synthetic.main.activity_project.*
+import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
 import ru.surfstudio.android.easyadapter.EasyAdapter
-import ru.surfstudio.android.easyadapter.ItemList
+import javax.inject.Inject
 
 /**
  * Вью TODO
@@ -22,8 +19,8 @@ import ru.surfstudio.android.easyadapter.ItemList
 class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
     val easyAdapter = EasyAdapter()
 
-    lateinit var tasksRecyclerView:RecyclerView
-
+    lateinit var tasksRecyclerView: RecyclerView
+    var PROJECT_ID: Long? = null
     @Inject
     lateinit var presenter: ProjectPresenter
     val itemController = TaskItemController({
@@ -43,9 +40,15 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
             persistentState: PersistableBundle?,
             viewRecreated: Boolean
     ) {
+        initProjectId()
+        presenter.loadProjectInfo(PROJECT_ID!!)
         initViews()
         initViewPager()
         initListeners()
+    }
+
+    private fun initProjectId() {
+        PROJECT_ID = intent.extras.getLong("PROJECT_ID", 0)
     }
 
     private fun initViewPager() {
@@ -55,14 +58,14 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
     }
 
     private fun initViews() {
-
         val pb = findViewById<ProgressBar>(R.id.project_progress_pb)
         val tv = findViewById<TextView>(R.id.project_name_tv)
         pb.progress = 50
     }
 
     override fun renderInternal(screenModel: ProjectScreenModel) {
-
+        project_name_tv.text = screenModel.projectName
+        project_description_tv.text = screenModel.projectDescription
     }
 
     private fun initListeners() {

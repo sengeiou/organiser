@@ -14,6 +14,7 @@ import ru.surfstudio.standard.domain.folder.Project
 import ru.surfstudio.standard.ui.navigation.AddFolderActivityRoute
 import ru.surfstudio.standard.ui.navigation.AddProjectActivityRoute
 import ru.surfstudio.standard.ui.navigation.InternalFolderFragmentRoute
+import ru.surfstudio.standard.ui.navigation.ProjectActivityRoute
 import javax.inject.Inject
 
 @PerScreen
@@ -105,6 +106,10 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
     fun openAddProjectActivity(folderId: Long) {
         observeToAddProjectActivity()
         activityNavigator.startForResult(AddProjectActivityRoute(folderId))
+    }
+
+    fun openProject(projectId:Long) {
+        activityNavigator.start(ProjectActivityRoute(projectId))
     }
 
 }

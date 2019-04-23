@@ -45,6 +45,7 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
+                    android:id="@+id/project_description_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
@@ -96,7 +97,17 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-
     </androidx.viewpager.widget.ViewPager>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/project_add_task_fab"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:elevation="8dp"
+        android:layout_gravity="bottom|right|end"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:backgroundTint="@color/ColorApp"
+        android:src="@drawable/baseline_add_black_36"
+        android:clickable="true"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

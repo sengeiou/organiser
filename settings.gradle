@@ -1,4 +1,17 @@
-include ':cf-bottom-bar', ':f-main-folder', ':cf-folder-recycler-view', ':f-internal-folder', ':i-database', ':i-add-folder', ':f-add-folder', ':i-folder', ':f-add-project', ':i-add-project', ':cf-datepicker', ':f-project', ':cf-task-recycler-view'
+include ':cf-bottom-bar', ':i-project', ':i-add-task',
+        ':f-main-folder',
+        ':cf-folder-recycler-view',
+        ':f-internal-folder',
+        ':i-database',
+        ':i-add-folder',
+        ':f-add-folder',
+        ':i-folder',
+        ':f-add-project',
+        ':i-add-project',
+        ':cf-datepicker',
+        ':f-project',
+        ':cf-task-recycler-view',
+        ':f-add-task'
 
 
 

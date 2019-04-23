@@ -48,7 +48,7 @@ class CompleteTasksFragmentView : BaseRenderableFragmentView<CompleteTasksScreen
     }
 
     private fun initViews(view:View) {
-       val tasksRecyclerView = view.findViewById<RecyclerView>(R.id.project_tesks_rv)
+       val tasksRecyclerView = view.findViewById<RecyclerView>(R.id.project_complete_tesks_rv)
         tasksRecyclerView.layoutManager = LinearLayoutManager(activity)
         tasksRecyclerView.adapter = easyAdapter
         easyAdapter.setItems(ItemList.create()

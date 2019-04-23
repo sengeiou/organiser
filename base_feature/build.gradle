@@ -8,6 +8,7 @@ dependencies {
     releaseImplementation project("$templatePrefix:f-debug-no-op")
     debugImplementation project("$templatePrefix:f-debug")
     qaImplementation project("$templatePrefix:f-debug")
+    implementation 'com.android.support:design:28.0.0'
 
     implementation project("$templatePrefix:i-push-notification")
     implementation project("$templatePrefix:i-auth")

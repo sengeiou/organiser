@@ -5,5 +5,6 @@ import ru.surfstudio.android.core.mvp.model.ScreenModel
 /**
  * Модель [ProjectActivityView].
  */
-class ProjectScreenModel : ScreenModel() {
+class ProjectScreenModel(var projectName:String = "",
+                         var projectDescription:String = "") : ScreenModel() {
 }

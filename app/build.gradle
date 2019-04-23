@@ -46,6 +46,7 @@ dependencies {
     implementation project("$templatePrefix:f-project")
     implementation project("$templatePrefix:f-add-folder")
     implementation project("$templatePrefix:f-add-project")
+    implementation project("$templatePrefix:f-add-task")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

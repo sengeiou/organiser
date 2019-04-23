@@ -11,8 +11,6 @@ import java.util.*
 interface ProjectDao {
     @Insert
     fun insertProject(project: Project):Long
-
-    //получить список папок в папке
     @Query("SELECT * FROM project WHERE parentFolderId LIKE :parentFolderId")
     fun getAllProjectsWithParentFolderId(parentFolderId: Long): List<Project>
 

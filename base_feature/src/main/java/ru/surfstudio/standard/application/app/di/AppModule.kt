@@ -15,6 +15,7 @@ import com.example.i_database.AppDatabase
 import androidx.room.Room
 import com.example.i_database.FolderDao
 import com.example.i_database.ProjectDao
+import com.example.i_database.TaskDao
 import ru.surfstudio.standard.domain.folder.Folder
 
 
@@ -43,6 +44,10 @@ class AppModule(
     @Provides
     @PerApplication
     internal fun provideProjectDao(appDatabase: AppDatabase): ProjectDao = appDatabase.getProjectDao()
+
+    @Provides
+    @PerApplication
+    internal fun provideTaskDao(appDatabase: AppDatabase): TaskDao = appDatabase.getTaskDao()
 
     @Provides
     @PerApplication

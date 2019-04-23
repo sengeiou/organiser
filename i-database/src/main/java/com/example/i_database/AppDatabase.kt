@@ -8,15 +8,17 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ru.surfstudio.standard.domain.folder.Folder
 import ru.surfstudio.standard.domain.folder.Project
+import ru.surfstudio.standard.domain.project.Task
 import java.util.concurrent.Executors
 
 
-@Database(entities = arrayOf(Folder::class, Project::class), version = 7,exportSchema = false)
+@Database(entities = arrayOf(Folder::class, Project::class, Task::class), version = 9,exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getFolderDao(): FolderDao
     abstract fun getProjectDao(): ProjectDao
+    abstract fun getTaskDao(): TaskDao
 
     companion object {
 
