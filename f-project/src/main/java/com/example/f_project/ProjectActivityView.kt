@@ -52,7 +52,7 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
     }
 
     private fun initViewPager() {
-        val pagerDapater = TasksPagerAdapter(supportFragmentManager)
+        val pagerDapater = TasksPagerAdapter(supportFragmentManager,PROJECT_ID!!)
         project_viewpager.adapter = pagerDapater
         project_tabs.setupWithViewPager(project_viewpager)
     }

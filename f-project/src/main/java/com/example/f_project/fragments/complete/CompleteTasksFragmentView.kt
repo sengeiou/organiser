@@ -16,7 +16,7 @@ import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
 
 /**
- * Вью TODO
+ * Вью
  */
 class CompleteTasksFragmentView : BaseRenderableFragmentView<CompleteTasksScreenModel>() {
     val easyAdapter = EasyAdapter()
@@ -52,20 +52,6 @@ class CompleteTasksFragmentView : BaseRenderableFragmentView<CompleteTasksScreen
         tasksRecyclerView.layoutManager = LinearLayoutManager(activity)
         tasksRecyclerView.adapter = easyAdapter
         easyAdapter.setItems(ItemList.create()
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
-                .addIf(true,itemController)
 
         )
 

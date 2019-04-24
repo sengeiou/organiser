@@ -14,6 +14,7 @@ import com.example.cf_datepicker.TimePickerDialogFragment
 import com.example.f_add_task.di.AddTaskScreenConfigurator
 import kotlinx.android.synthetic.main.activity_add_task.*
 import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
+import ru.surfstudio.standard.domain.project.Task
 import java.util.*
 import javax.inject.Inject
 
@@ -24,7 +25,12 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
     private val datePickerDialog = DatePickerDialogFragment()
     private val timePickerDialog = TimePickerDialogFragment()
 
+    private var PARENT_PROJECT_ID:Long? = null
     lateinit var addTaskToolbar: Toolbar
+    private var BEGIN_DATE:Date? = null
+    private var END_DATE:Date? = null
+
+
     lateinit var beginDateTv: TextView
     lateinit var beginTimeTv: TextView
     lateinit var endDateTv: TextView
@@ -32,40 +38,45 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
 
     val beginDateDialogListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
-                val monthFromOne = month+1
+                val monthFromOne = month + 1
                 beginTimeTv.isEnabled = true
                 beginTimeTv.text = "8:00"
+                BEGIN_DATE = GregorianCalendar(year,month,day).time
                 beginDateTv.text = "$day.$monthFromOne.$year"
             }
 
     val endDateDialogListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
-                val monthFromOne = month+1
+                val monthFromOne = month + 1
                 endTimeTv.isEnabled = true
                 endTimeTv.text = "8:00"
+                END_DATE = GregorianCalendar(year,month,day).time
                 endDateTv.text = "$day.$monthFromOne.$year"
             }
 
     val beginTimeDialogListener =
             TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-                var minuteWithZerro:String? = null
-                if(minute<10){
+                var minuteWithZerro: String? = null
+                if (minute < 10) {
                     minuteWithZerro = "0$minute"
-                }else minuteWithZerro = minute.toString()
+                } else minuteWithZerro = minute.toString()
                 beginTimeTv.text = "$hour:$minuteWithZerro"
             }
     val endTimeDialogListener =
             TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-                val minuteWithZerro:String?
-                if(minute<10){
+                val minuteWithZerro: String?
+                if (minute < 10) {
                     minuteWithZerro = "0$minute"
-                }else minuteWithZerro = minute.toString()
+                } else minuteWithZerro = minute.toString()
                 endTimeTv.text = "$hour:$minuteWithZerro"
             }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.action_ok) {
-
+            val taskName = add_task_name_ET.text.toString()
+            val reminder = add_task_reminder_spinner.selectedItemPosition
+            val repeat = add_task_repeat_spinner.selectedItemPosition
+            presenter.addTask(Task(0, PARENT_PROJECT_ID!!,taskName,BEGIN_DATE,END_DATE,reminder,repeat,false))
         }
         if (item?.itemId == android.R.id.home) {
             onBackPressed()
@@ -94,9 +105,14 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
             persistentState: PersistableBundle?,
             viewRecreated: Boolean
     ) {
+        initParentProjectId()
         initToolbar()
         initViews()
         initListeners()
+    }
+
+    private fun initParentProjectId() {
+       PARENT_PROJECT_ID = intent.extras.getLong("PARENT_PROJECT_ID")
     }
 
     private fun initViews() {
@@ -127,14 +143,14 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
     private fun initEndTimeListener() {
         endTimeTv.setOnClickListener {
             timePickerDialog.setListener(endTimeDialogListener)
-            timePickerDialog.show(supportFragmentManager,"timepicker")
+            timePickerDialog.show(supportFragmentManager, "timepicker")
         }
     }
 
     private fun initBeginTimeListener() {
         beginTimeTv.setOnClickListener {
             timePickerDialog.setListener(beginTimeDialogListener)
-            timePickerDialog.show(supportFragmentManager,"timepicker")
+            timePickerDialog.show(supportFragmentManager, "timepicker")
         }
     }
 

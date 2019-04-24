@@ -2,21 +2,24 @@ package ru.surfstudio.standard.application.app.di
 
 import android.app.Application
 import android.content.Context
+import com.example.i_database.AppDatabase
+import com.example.i_database.FolderDao
+import com.example.i_database.ProjectDao
+import com.example.i_database.TaskDao
+import com.example.i_project.ProjectInteractor
+import com.example.i_project.ProjectInteractorImp
+import com.example.i_project.data.ProjectRepository
+import com.example.i_project.data.ProjectRepositoryImp
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
-import ru.surfstudio.standard.base.util.StringsProvider
+import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.GlobalNavigator
 import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProvider
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProviderImpl
-import com.example.i_database.AppDatabase
-import androidx.room.Room
-import com.example.i_database.FolderDao
-import com.example.i_database.ProjectDao
-import com.example.i_database.TaskDao
-import ru.surfstudio.standard.domain.folder.Folder
+import ru.surfstudio.standard.base.util.StringsProvider
 
 
 @Module
@@ -75,5 +78,18 @@ class AppModule(
     @PerApplication
     internal fun provideConnectionQualityProvider(context: Context): ConnectionProvider {
         return ConnectionProvider(context)
+    }
+
+
+    @Provides
+    @PerApplication
+    fun provideProjectInteractor(projectRepository: ProjectRepository): ProjectInteractor {
+        return ProjectInteractorImp(projectRepository)
+    }
+
+    @Provides
+    @PerApplication
+    fun provideProjectRepository(taskDao: TaskDao): ProjectRepository{
+        return ProjectRepositoryImp(taskDao)
     }
 }

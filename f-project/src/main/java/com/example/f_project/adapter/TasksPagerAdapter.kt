@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.f_project.fragments.complete.CompleteTasksFragmentView
 import com.example.f_project.fragments.unfinished.UnfinishedTasksFragmentView
 
-class TasksPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class TasksPagerAdapter(fm: FragmentManager,val projectId:Long) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> UnfinishedTasksFragmentView()
+            0 -> UnfinishedTasksFragmentView.newInstance(projectId)
             else -> CompleteTasksFragmentView()
         }
     }

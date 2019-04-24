@@ -5,4 +5,5 @@ import ru.surfstudio.standard.domain.project.Task
 
 interface ProjectInteractor {
     fun loadTasks(projectId:Long):Observable<List<Task>>
+    fun loadTask(taskId: Long?):Observable<Task>
 }

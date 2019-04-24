@@ -8,6 +8,10 @@ import javax.inject.Inject
 
 
 class ProjectRepositoryImp @Inject constructor(val taskDao: TaskDao): ProjectRepository {
+    override fun loadTask(taskId: Long?):Observable<Task> {
+        return Observable.fromCallable {taskDao.getTaskById(taskId!!)}
+                .subscribeOn(Schedulers.io())
+    }
 
     override fun loadTasks(projectId: Long): Observable<List<Task>> {
         return Observable.fromCallable {taskDao.getAllTasksWithParentProjectId(projectId)}

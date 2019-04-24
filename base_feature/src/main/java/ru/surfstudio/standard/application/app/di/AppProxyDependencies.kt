@@ -6,6 +6,8 @@ import com.example.i_database.AppDatabase
 import com.example.i_database.FolderDao
 import com.example.i_database.ProjectDao
 import com.example.i_database.TaskDao
+import com.example.i_project.ProjectInteractor
+import com.example.i_project.data.ProjectRepository
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.GlobalNavigator
@@ -37,6 +39,8 @@ interface AppProxyDependencies {
     fun folderDao(): FolderDao
     fun projectDao(): ProjectDao
     fun taskDao(): TaskDao
+    fun projectInteractor():ProjectInteractor
+    fun projectRepository():ProjectRepository
 
 
     fun fcmStorage(): FcmStorage

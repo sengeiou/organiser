@@ -1,6 +1,7 @@
 package com.example.f_project.fragments.unfinished
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +22,23 @@ import javax.inject.Inject
  */
 class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksScreenModel>() {
 
-    val easyAdapter = EasyAdapter()
+    companion object {
+        fun newInstance(projectId: Long): UnfinishedTasksFragmentView {
+            val unfinishedTasksFragmentView = UnfinishedTasksFragmentView()
+            val arguments = Bundle()
+            arguments.putLong("PROJECT_ID", projectId)
+            unfinishedTasksFragmentView.arguments = arguments
+            return unfinishedTasksFragmentView
+        }
+    }
+
+    private var PROJECT_ID: Long? = null
+    private val easyAdapter = EasyAdapter()
     lateinit var addTaskFab: FloatingActionButton
 
     lateinit var tasksRecyclerView: RecyclerView
 
-    val itemController = TaskItemController({
+    private val itemController = TaskItemController({
 
     })
 
@@ -46,8 +58,14 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
             savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_unfinished_tasks, container, false)
+        initProjectId()
         initViews(view)
         return view
+    }
+
+    private fun initProjectId() {
+        PROJECT_ID = arguments?.getLong("PROJECT_ID")
+        Log.d("TASKSMY",PROJECT_ID.toString())
     }
 
     private fun initViews(view: View?) {
@@ -55,10 +73,6 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
         val tasksRecyclerView = view?.findViewById<RecyclerView>(R.id.project_unfinished_tesks_rv)
         tasksRecyclerView?.layoutManager = LinearLayoutManager(activity)
         tasksRecyclerView?.adapter = easyAdapter
-        easyAdapter.setItems(ItemList.create()
-                .addIf(true, itemController)
-                .addIf(true, itemController)
-                .addIf(true, itemController))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
@@ -66,12 +80,15 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
     }
 
     override fun renderInternal(screenModel: UnfinishedTasksScreenModel) {
-
+        easyAdapter.setItems(ItemList.create()
+                .addAll(screenModel.tasksList,itemController))
     }
 
     private fun initListeners() {
         addTaskFab.setOnClickListener {
-            presenter.openAddTaskActivity()
+            presenter.openAddTaskActivity(PROJECT_ID!!)
         }
     }
+
+
 }

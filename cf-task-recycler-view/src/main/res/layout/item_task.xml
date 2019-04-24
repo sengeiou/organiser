@@ -16,14 +16,16 @@
         android:layout_gravity="top"
         >
     <TextView
+        android:id="@+id/task_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Название задачи"
+        android:text=""
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
         />
         <TextView
+            android:id="@+id/task_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C 22.08.2019"
