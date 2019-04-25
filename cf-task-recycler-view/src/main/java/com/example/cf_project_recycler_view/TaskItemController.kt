@@ -5,6 +5,7 @@ import android.widget.TextView
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 import ru.surfstudio.standard.domain.project.Task
+import java.text.SimpleDateFormat
 
 /**
  * Контроллер
@@ -12,6 +13,7 @@ import ru.surfstudio.standard.domain.project.Task
 class TaskItemController(
         private val onItemClickAction: (Task) -> Unit
 ) : BindableItemController<Task, TaskItemController.Holder>() {
+
 
     override fun createViewHolder(parent: ViewGroup) = Holder(parent)
 
@@ -31,6 +33,14 @@ class TaskItemController(
         override fun bind(task: Task) {
             this.task = task
             taskName.text = task.name
+            task.beginDate?.let {
+                val dateBegin = SimpleDateFormat("dd.MM.yy").format(it)
+                taskDate.text = "C $dateBegin"
+            }
+            task.endDate?.let {
+                val dateEnd = SimpleDateFormat("dd.MM.yy").format(it)
+                taskDate.append(" до $dateEnd")
+            }
         }
     }
 }

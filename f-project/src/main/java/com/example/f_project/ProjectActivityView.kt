@@ -52,15 +52,14 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
     }
 
     private fun initViewPager() {
-        val pagerDapater = TasksPagerAdapter(supportFragmentManager,PROJECT_ID!!)
-        project_viewpager.adapter = pagerDapater
+        val pagerAdapater = TasksPagerAdapter(supportFragmentManager,PROJECT_ID!!)
+        project_viewpager.adapter = pagerAdapater
         project_tabs.setupWithViewPager(project_viewpager)
     }
 
     private fun initViews() {
         val pb = findViewById<ProgressBar>(R.id.project_progress_pb)
         val tv = findViewById<TextView>(R.id.project_name_tv)
-        pb.progress = 50
     }
 
     override fun renderInternal(screenModel: ProjectScreenModel) {

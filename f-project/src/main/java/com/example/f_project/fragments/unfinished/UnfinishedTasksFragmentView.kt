@@ -16,6 +16,12 @@ import ru.surfstudio.android.core.mvp.fragment.BaseRenderableFragmentView
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
 import javax.inject.Inject
+import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.cf_project_recycler_view.EasyAdapterWithSwipe
+import com.example.cf_project_recycler_view.ItemTouchHelperAdapter
+import com.example.cf_project_recycler_view.SimpleItemTouchHelperCallback
+
+
 
 /**
  * Вью TODO
@@ -33,7 +39,7 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
     }
 
     private var PROJECT_ID: Long? = null
-    private val easyAdapter = EasyAdapter()
+    private val easyAdapter = EasyAdapterWithSwipe()
     lateinit var addTaskFab: FloatingActionButton
 
     lateinit var tasksRecyclerView: RecyclerView
@@ -73,6 +79,9 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
         val tasksRecyclerView = view?.findViewById<RecyclerView>(R.id.project_unfinished_tesks_rv)
         tasksRecyclerView?.layoutManager = LinearLayoutManager(activity)
         tasksRecyclerView?.adapter = easyAdapter
+        val callback = SimpleItemTouchHelperCallback(easyAdapter)
+        val touchHelper = ItemTouchHelper(callback)
+        touchHelper.attachToRecyclerView(tasksRecyclerView)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
@@ -89,6 +98,4 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
             presenter.openAddTaskActivity(PROJECT_ID!!)
         }
     }
-
-
 }
