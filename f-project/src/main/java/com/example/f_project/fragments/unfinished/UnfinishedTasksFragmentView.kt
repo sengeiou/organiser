@@ -39,7 +39,9 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
     }
 
     private var PROJECT_ID: Long? = null
-    private val easyAdapter = EasyAdapterWithSwipe()
+    private val easyAdapter = EasyAdapterWithSwipe({
+        presenter.completeTask(it)
+    })
     lateinit var addTaskFab: FloatingActionButton
 
     lateinit var tasksRecyclerView: RecyclerView
@@ -79,7 +81,7 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
         val tasksRecyclerView = view?.findViewById<RecyclerView>(R.id.project_unfinished_tesks_rv)
         tasksRecyclerView?.layoutManager = LinearLayoutManager(activity)
         tasksRecyclerView?.adapter = easyAdapter
-        val callback = SimpleItemTouchHelperCallback(easyAdapter)
+        val callback = SimpleItemTouchHelperCallback(easyAdapter,context!!)
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(tasksRecyclerView)
     }
