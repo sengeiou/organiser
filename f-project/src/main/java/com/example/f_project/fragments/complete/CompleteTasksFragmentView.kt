@@ -23,7 +23,7 @@ class CompleteTasksFragmentView : BaseRenderableFragmentView<CompleteTasksScreen
 
     lateinit var tasksRecyclerView:RecyclerView
 
-    val itemController = TaskItemController({
+    val taskItemController = TaskItemController({
 
     })
 
@@ -51,10 +51,6 @@ class CompleteTasksFragmentView : BaseRenderableFragmentView<CompleteTasksScreen
        val tasksRecyclerView = view.findViewById<RecyclerView>(R.id.project_complete_tesks_rv)
         tasksRecyclerView.layoutManager = LinearLayoutManager(activity)
         tasksRecyclerView.adapter = easyAdapter
-        easyAdapter.setItems(ItemList.create()
-
-        )
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
@@ -62,7 +58,9 @@ class CompleteTasksFragmentView : BaseRenderableFragmentView<CompleteTasksScreen
     }
 
     override fun renderInternal(screenModel: CompleteTasksScreenModel) {
-
+        easyAdapter.setItems(ItemList.create()
+                .addAll(screenModel.tasksList,taskItemController)
+        )
     }
 
     private fun initListeners() {

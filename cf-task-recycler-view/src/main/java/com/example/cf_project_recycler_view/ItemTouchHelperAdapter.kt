@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 interface ItemTouchHelperAdapter {
-    fun onItemMove(fromPosition: View, toPosition: Int)
-
-    fun onItemDismiss(item: RecyclerView.ViewHolder,position:Int)
+    fun onItemMove(fromPosition: Int, toPosition: Int):Boolean
+    fun onRightSwipe(viewHolder: RecyclerView.ViewHolder, adapterPosition: Int)
+    fun onLeftSwipe(viewHolder: RecyclerView.ViewHolder, adapterPosition: Int)
 }

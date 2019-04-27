@@ -21,7 +21,7 @@ import ru.surfstudio.android.easyadapter.ItemList
 import javax.inject.Inject
 
 /**
- * Вью TODO
+ * Вью
  */
 class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>() {
 

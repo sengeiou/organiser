@@ -40,6 +40,8 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
 
     private var PROJECT_ID: Long? = null
     private val easyAdapter = EasyAdapterWithSwipe({
+        presenter.deleteTask(it)
+    },{
         presenter.completeTask(it)
     })
     lateinit var addTaskFab: FloatingActionButton

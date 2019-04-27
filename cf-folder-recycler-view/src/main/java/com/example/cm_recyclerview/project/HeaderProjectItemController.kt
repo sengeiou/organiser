@@ -6,7 +6,7 @@ import ru.surfstudio.android.easyadapter.controller.NoDataItemController
 import ru.surfstudio.android.easyadapter.holder.BaseViewHolder
 
 /**
- * Контроллер TODO
+ * Контроллер
  */
 class HeaderProjectItemController : NoDataItemController<BaseViewHolder>() {
 

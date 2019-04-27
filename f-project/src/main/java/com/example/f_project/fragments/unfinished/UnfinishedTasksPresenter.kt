@@ -36,10 +36,17 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
 
     /**
      * Добавление задачи в список завершенных. TODO написать добавление задачи в завершенный список
-     * @param position позиция элемента в RecyclerView,потои используется для удаления элемента из ScreenModel
+     * @param position позиция элемента в RecyclerView,потом используется для удаления элемента из ScreenModel (в sm индексы с 0)
      */
     fun completeTask(position: Int) {
-        val posInSm = position - 1
-        sm.tasksList.removeAt(posInSm)
+        val positionInSm = position - 1
+        val taskToComplete = sm.tasksList[positionInSm]
+        sm.tasksList.removeAt(positionInSm)
+        projectInteractor.completeTask(taskToComplete)
+    }
+
+    fun deleteTask(position: Int) {
+        val positionInSm = position - 1
+        sm.tasksList.removeAt(positionInSm)
     }
 }
