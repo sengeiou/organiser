@@ -40,7 +40,7 @@ class InternalFolderFragmentView : BaseRenderableFragmentView<InternalFolderScre
     }
 
     private val projectItemController = ProjectItemController {
-
+        presenter.openProject(it)
     }
     private val folderHeaderItemController = HeaderFolderItemController()
     private val projectHeaderItemController = HeaderProjectItemController()
@@ -97,10 +97,10 @@ class InternalFolderFragmentView : BaseRenderableFragmentView<InternalFolderScre
 
     override fun renderInternal(screenModel: InternalFolderScreenModel) {
         easyAdapter.setItems(ItemList.create()
-                .addIf(screenModel.hasFolders(),folderHeaderItemController)
+                .addIf(screenModel.hasFolders(), folderHeaderItemController)
                 .addIf(!screenModel.hasContent(), noDataItemController)
                 .addAll(screenModel.folderList, folderItemController)
-                .addIf(screenModel.hasProjects(),projectHeaderItemController)
+                .addIf(screenModel.hasProjects(), projectHeaderItemController)
                 .addAll(screenModel.projectList, projectItemController))
         if (screenModel.loading) {
             progressBar.visibility = View.VISIBLE

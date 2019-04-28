@@ -6,6 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.surfstudio.android.core.mvp.presenter.BasePresenter
 import ru.surfstudio.android.core.mvp.presenter.BasePresenterDependency
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavigator
+import ru.surfstudio.standard.domain.project.Task
 import ru.surfstudio.standard.ui.navigation.AddTaskActivityRoute
 import javax.inject.Inject
 
@@ -18,6 +19,18 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
     fun openAddTaskActivity(projectId: Long) {
         observeToAddTaskActivity()
         activityNavigator.startForResult(AddTaskActivityRoute(projectId))
+    }
+
+    //TODO добавить прогресс
+    fun loadUnfinishedTasks(projectId: Long) {
+        projectInteractor.loadUnfinishedTasks(projectId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    sm.tasksList = it as ArrayList<Task>
+                    view.render(sm)
+                }, {
+                    Log.e(UNFINISHED_TASK_PRESENTER, it.message)
+                })
     }
 
     private fun observeToAddTaskActivity() {

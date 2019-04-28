@@ -10,8 +10,8 @@ import ru.surfstudio.standard.domain.project.Task
 interface TaskDao {
     @Insert
     fun insertTask(task: Task):Long
-    @Query("SELECT * FROM task WHERE parentProjectId LIKE :parentProjectId")
-    fun getAllTasksWithParentProjectId(parentProjectId: Long): List<Task>
+    @Query("SELECT * FROM task WHERE parentProjectId LIKE :parentProjectId AND isCompleted LIKE :isCompleted")
+    fun getAllUnfinishedTasksWithParentProjectId(parentProjectId: Long,isCompleted:Boolean = false): List<Task>
 
     @Query("SELECT * FROM task WHERE id LIKE :taskId")
     fun getTaskById(taskId: Long): Task

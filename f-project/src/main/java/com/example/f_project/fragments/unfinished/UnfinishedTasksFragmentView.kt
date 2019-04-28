@@ -89,6 +89,7 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
+        presenter.loadUnfinishedTasks(PROJECT_ID!!)
         initListeners()
     }
 

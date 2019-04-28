@@ -24,7 +24,7 @@ class ProjectInteractorImp @Inject constructor(private val projectRepository: Pr
         return projectRepository.loadTask(taskId)
     }
 
-    override fun loadTasks(projectId: Long): Observable<List<Task>> {
-        return  projectRepository.loadTasks(projectId)
+    override fun loadUnfinishedTasks(projectId: Long): Observable<List<Task>> {
+        return  projectRepository.loadUnfinishedTasks(projectId)
     }
 }

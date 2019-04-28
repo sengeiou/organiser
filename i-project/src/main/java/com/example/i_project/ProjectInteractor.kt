@@ -5,7 +5,7 @@ import io.reactivex.subjects.PublishSubject
 import ru.surfstudio.standard.domain.project.Task
 
 interface ProjectInteractor {
-    fun loadTasks(projectId:Long):Observable<List<Task>>
+    fun loadUnfinishedTasks(projectId:Long):Observable<List<Task>>
     fun loadTask(taskId: Long?):Observable<Task>
     fun completeTask(taskToComplete: Task)
     fun subscribeToCompleteTask():PublishSubject<Task>

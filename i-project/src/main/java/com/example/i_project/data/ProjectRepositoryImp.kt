@@ -13,8 +13,8 @@ class ProjectRepositoryImp @Inject constructor(val taskDao: TaskDao): ProjectRep
                 .subscribeOn(Schedulers.io())
     }
 
-    override fun loadTasks(projectId: Long): Observable<List<Task>> {
-        return Observable.fromCallable {taskDao.getAllTasksWithParentProjectId(projectId)}
+    override fun loadUnfinishedTasks(projectId: Long): Observable<List<Task>> {
+        return Observable.fromCallable {taskDao.getAllUnfinishedTasksWithParentProjectId(projectId)}
                 .subscribeOn(Schedulers.io())
     }
 }

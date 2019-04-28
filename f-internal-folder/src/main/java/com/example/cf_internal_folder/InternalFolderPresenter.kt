@@ -14,6 +14,7 @@ import ru.surfstudio.standard.domain.folder.Project
 import ru.surfstudio.standard.ui.navigation.AddFolderActivityRoute
 import ru.surfstudio.standard.ui.navigation.AddProjectActivityRoute
 import ru.surfstudio.standard.ui.navigation.InternalFolderFragmentRoute
+import ru.surfstudio.standard.ui.navigation.ProjectActivityRoute
 import javax.inject.Inject
 
 @PerScreen
@@ -98,5 +99,9 @@ class InternalFolderPresenter @Inject constructor(basePresenterDependency: BaseP
                 }, {
                     Log.e(INTERNAL_FOLDER_PRESENTER, it.message)
                 })
+    }
+
+    fun openProject(project: Project) {
+        activityNavigator.start(ProjectActivityRoute(project.id))
     }
 }
