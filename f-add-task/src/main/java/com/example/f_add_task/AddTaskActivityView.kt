@@ -55,7 +55,7 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
             }
 
     val beginTimeDialogListener =
-            TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+            TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 var minuteWithZerro: String? = null
                 if (minute < 10) {
                     minuteWithZerro = "0$minute"
@@ -63,7 +63,7 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
                 beginTimeTv.text = "$hour:$minuteWithZerro"
             }
     val endTimeDialogListener =
-            TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+            TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 val minuteWithZerro: String?
                 if (minute < 10) {
                     minuteWithZerro = "0$minute"

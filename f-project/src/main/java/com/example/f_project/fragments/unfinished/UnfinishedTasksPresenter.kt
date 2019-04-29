@@ -16,6 +16,17 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
     : BasePresenter<UnfinishedTasksFragmentView>(basePresenterDependency) {
     private val UNFINISHED_TASK_PRESENTER = "UnfinishedTaskPresenter"
     private val sm = UnfinishedTasksScreenModel()
+
+    override fun onFirstLoad() {
+        projectInteractor.subscribeToUnfinishedTask()
+                .subscribe({
+                    sm.tasksList.add(it)
+                    view.render(sm)
+                }, {
+                    Log.e(UNFINISHED_TASK_PRESENTER, it.message)
+                })
+    }
+
     fun openAddTaskActivity(projectId: Long) {
         observeToAddTaskActivity()
         activityNavigator.startForResult(AddTaskActivityRoute(projectId))
@@ -26,6 +37,7 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
         projectInteractor.loadUnfinishedTasks(projectId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    Log.d(UNFINISHED_TASK_PRESENTER,it.toString())
                     sm.tasksList = it as ArrayList<Task>
                     view.render(sm)
                 }, {

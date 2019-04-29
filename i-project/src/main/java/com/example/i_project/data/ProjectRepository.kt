@@ -6,4 +6,7 @@ import ru.surfstudio.standard.domain.project.Task
 interface ProjectRepository {
     fun loadUnfinishedTasks(projectId:Long): Observable<List<Task>>
     fun loadTask(taskId:Long?):Observable<Task>
+    fun loadCompletedTasks(projectId: Long):Observable<List<Task>>
+    fun completeTask(taskToComplete: Task)
+    fun doNotCompleteTask(taskToUnfinish:Task)
 }

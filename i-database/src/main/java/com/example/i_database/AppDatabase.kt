@@ -12,7 +12,7 @@ import ru.surfstudio.standard.domain.project.Task
 import java.util.concurrent.Executors
 
 
-@Database(entities = arrayOf(Folder::class, Project::class, Task::class), version = 9,exportSchema = false)
+@Database(entities = arrayOf(Folder::class, Project::class, Task::class), version = 11,exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
 

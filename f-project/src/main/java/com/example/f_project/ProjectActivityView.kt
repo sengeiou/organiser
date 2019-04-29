@@ -48,7 +48,7 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
     }
 
     private fun initProjectId() {
-        PROJECT_ID = intent.extras.getLong("PROJECT_ID", 0)
+        PROJECT_ID = intent?.extras?.getLong("PROJECT_ID", 0)
     }
 
     private fun initViewPager() {
@@ -59,7 +59,6 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
 
     private fun initViews() {
         val pb = findViewById<ProgressBar>(R.id.project_progress_pb)
-        val tv = findViewById<TextView>(R.id.project_name_tv)
     }
 
     override fun renderInternal(screenModel: ProjectScreenModel) {

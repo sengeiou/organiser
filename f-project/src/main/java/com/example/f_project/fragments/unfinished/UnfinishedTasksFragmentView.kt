@@ -75,7 +75,6 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
 
     private fun initProjectId() {
         PROJECT_ID = arguments?.getLong("PROJECT_ID")
-        Log.d("TASKSMY",PROJECT_ID.toString())
     }
 
     private fun initViews(view: View?) {

@@ -9,12 +9,12 @@ import java.util.*
 @Entity
 data class Task constructor(@PrimaryKey(autoGenerate = true)
                             @NonNull
-                            val id:Long,
-                            val parentProjectId:Long,
-                            val name:String,
+                            var id:Long,
+                            var parentProjectId:Long,
+                            var name:String,
                             var beginDate: Date?,
                             var endDate: Date?,
                             var reminder:Int?,
                             var repeat:Int?,
-                            val isCompleted:Boolean) : Serializable {
+                            var isCompleted:Boolean) : Serializable {
 }

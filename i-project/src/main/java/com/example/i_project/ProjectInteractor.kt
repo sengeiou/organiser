@@ -9,4 +9,7 @@ interface ProjectInteractor {
     fun loadTask(taskId: Long?):Observable<Task>
     fun completeTask(taskToComplete: Task)
     fun subscribeToCompleteTask():PublishSubject<Task>
+    fun subscribeToUnfinishedTask():PublishSubject<Task>
+    fun loadCompletedTasks(projectId: Long):Observable<List<Task>>
+    fun doNotCompleteTask(taskToUnfinish: Task)
 }

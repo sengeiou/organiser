@@ -10,7 +10,7 @@ class TasksPagerAdapter(fm: FragmentManager,val projectId:Long) : FragmentPagerA
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> UnfinishedTasksFragmentView.newInstance(projectId)
-            else -> CompleteTasksFragmentView()
+            else -> CompleteTasksFragmentView.newInstance(projectId)
         }
     }
 

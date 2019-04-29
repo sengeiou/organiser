@@ -1,22 +1,40 @@
 package com.example.i_project
 
-import android.util.Log
 import com.example.i_project.data.ProjectRepository
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import ru.surfstudio.standard.domain.project.Task
 import javax.inject.Inject
-import io.reactivex.subjects.PublishSubject
 
 
+class ProjectInteractorImp @Inject constructor(private val projectRepository: ProjectRepository)
+    : ProjectInteractor {
 
-class ProjectInteractorImp @Inject constructor(private val projectRepository: ProjectRepository):ProjectInteractor {
     private val completeTaskSubject = PublishSubject.create<Task>()
+    private val unfinishTaskSubject = PublishSubject.create<Task>()
+
+    override fun doNotCompleteTask(taskToUnfinish: Task) {
+        taskToUnfinish.isCompleted = false
+        projectRepository.unfinishTask(taskToUnfinish)
+        unfinishTaskSubject.onNext(taskToUnfinish)
+    }
+
+    override fun subscribeToUnfinishedTask(): PublishSubject<Task> {
+        return unfinishTaskSubject
+    }
+
+    override fun loadCompletedTasks(projectId: Long): Observable<List<Task>> {
+        return projectRepository.loadCompletedTasks(projectId)
+    }
+
     override fun subscribeToCompleteTask(): PublishSubject<Task> {
         return completeTaskSubject
     }
 
     //TODO реализовать запросы в бд
     override fun completeTask(taskToComplete: Task) {
+        taskToComplete.isCompleted = true
+        projectRepository.completeTask(taskToComplete)
         completeTaskSubject.onNext(taskToComplete)
     }
 
@@ -25,6 +43,6 @@ class ProjectInteractorImp @Inject constructor(private val projectRepository: Pr
     }
 
     override fun loadUnfinishedTasks(projectId: Long): Observable<List<Task>> {
-        return  projectRepository.loadUnfinishedTasks(projectId)
+        return projectRepository.loadUnfinishedTasks(projectId)
     }
 }

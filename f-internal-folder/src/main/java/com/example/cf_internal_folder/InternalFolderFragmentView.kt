@@ -108,7 +108,7 @@ class InternalFolderFragmentView : BaseRenderableFragmentView<InternalFolderScre
     }
 
     private fun initListeners() {
-        fab_addFolder?.setOnClickListener { it ->
+        fab_addFolder?.setOnClickListener {
             FOLDER_ID.let { folderId ->
                 presenter.openAddFolderActivity(folderId!!)
             }

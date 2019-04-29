@@ -29,7 +29,7 @@ class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>
                 addProject_begindate_tv.text = "$day.$monthFromOne.$year"
             }
     val endDateDialogListener =
-            DatePickerDialog.OnDateSetListener { datePicker: DatePicker, year: Int, month: Int, day: Int ->
+            DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                 val monthFromOne = month+1
                 END_DATE = GregorianCalendar(year,month,day).time
                 addProject_enddate_tv.text = "$day.$monthFromOne.$year"
