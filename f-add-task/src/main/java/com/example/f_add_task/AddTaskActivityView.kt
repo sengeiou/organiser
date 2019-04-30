@@ -19,7 +19,7 @@ import java.util.*
 import javax.inject.Inject
 
 /**
- * Вью TODO
+ * Вью
  */
 class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
     private val datePickerDialog = DatePickerDialogFragment()

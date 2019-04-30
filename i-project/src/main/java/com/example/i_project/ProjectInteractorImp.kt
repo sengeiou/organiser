@@ -9,13 +9,16 @@ import javax.inject.Inject
 
 class ProjectInteractorImp @Inject constructor(private val projectRepository: ProjectRepository)
     : ProjectInteractor {
+    override fun deleteTask(taskToDelete: Task) {
+        projectRepository.deleteTask(taskToDelete)
+    }
 
     private val completeTaskSubject = PublishSubject.create<Task>()
     private val unfinishTaskSubject = PublishSubject.create<Task>()
 
     override fun doNotCompleteTask(taskToUnfinish: Task) {
         taskToUnfinish.isCompleted = false
-        projectRepository.unfinishTask(taskToUnfinish)
+        projectRepository.doNotCompleteTask(taskToUnfinish)
         unfinishTaskSubject.onNext(taskToUnfinish)
     }
 

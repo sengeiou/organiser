@@ -9,4 +9,5 @@ interface ProjectRepository {
     fun loadCompletedTasks(projectId: Long):Observable<List<Task>>
     fun completeTask(taskToComplete: Task)
     fun doNotCompleteTask(taskToUnfinish:Task)
+    fun deleteTask(taskToDelete: Task)
 }

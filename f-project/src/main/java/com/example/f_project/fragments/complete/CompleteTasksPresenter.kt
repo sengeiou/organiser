@@ -43,6 +43,8 @@ class CompleteTasksPresenter @Inject constructor(basePresenterDependency: BasePr
 
     fun deleteTask(position: Int) {
         val positionInSm = position - 1
+        val taskToDelete = sm.tasksList[positionInSm]
         sm.tasksList.removeAt(positionInSm)
+        projectInteractor.deleteTask(taskToDelete)
     }
 }

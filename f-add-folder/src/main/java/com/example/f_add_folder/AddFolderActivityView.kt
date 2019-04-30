@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 
 /**
- * Вью TODO
+ * Вью
  */
 class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>() {
 

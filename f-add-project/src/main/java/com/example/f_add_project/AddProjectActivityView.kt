@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 /**
- * Вью TODO
+ * Вью
  */
 class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>() {
 

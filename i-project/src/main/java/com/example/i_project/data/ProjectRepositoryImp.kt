@@ -10,6 +10,17 @@ import javax.inject.Inject
 
 
 class ProjectRepositoryImp @Inject constructor(val taskDao: TaskDao): ProjectRepository {
+    override fun deleteTask(taskToDelete: Task) {
+        Observable.fromCallable {taskDao.deleteTask(taskToDelete)}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({
+                    Log.d(PROJECT_REPOSITORY,it.toString())
+                },{
+                    Log.e(PROJECT_REPOSITORY,it.message)
+                })
+    }
+
     override fun doNotCompleteTask(taskToUnfinish: Task) {
         Observable.fromCallable { taskDao.updateTask(taskToUnfinish) }
                 .subscribeOn(Schedulers.io())
