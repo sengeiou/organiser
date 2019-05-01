@@ -19,6 +19,7 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
 
     override fun onFirstLoad() {
         projectInteractor.subscribeToUnfinishedTask()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     sm.tasksList.add(it)
                     view.render(sm)

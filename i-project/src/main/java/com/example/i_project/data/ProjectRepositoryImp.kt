@@ -21,27 +21,17 @@ class ProjectRepositoryImp @Inject constructor(val taskDao: TaskDao): ProjectRep
                 })
     }
 
-    override fun doNotCompleteTask(taskToUnfinish: Task) {
-        Observable.fromCallable { taskDao.updateTask(taskToUnfinish) }
+    override fun doNotCompleteTask(taskToUnfinish: Task): Observable<Int> {
+      return  Observable.fromCallable { taskDao.updateTask(taskToUnfinish) }
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({
-                    Log.d(PROJECT_REPOSITORY,it.toString())
-                },{
-                    Log.e(PROJECT_REPOSITORY,it.message)
-                })
+
     }
 
     private val PROJECT_REPOSITORY = "ProjectRepository"
-    override fun completeTask(taskToComplete: Task) {
-        Observable.fromCallable { taskDao.updateTask(taskToComplete) }
+    override fun completeTask(taskToComplete: Task): Observable<Int> {
+       return Observable.fromCallable { taskDao.updateTask(taskToComplete) }
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({
-                    Log.d(PROJECT_REPOSITORY,it.toString())
-                },{
-                    Log.e(PROJECT_REPOSITORY,it.message)
-                })
+
     }
 
     override fun loadCompletedTasks(projectId: Long): Observable<List<Task>> {

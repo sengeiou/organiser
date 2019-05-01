@@ -7,7 +7,7 @@ interface ProjectRepository {
     fun loadUnfinishedTasks(projectId:Long): Observable<List<Task>>
     fun loadTask(taskId:Long?):Observable<Task>
     fun loadCompletedTasks(projectId: Long):Observable<List<Task>>
-    fun completeTask(taskToComplete: Task)
-    fun doNotCompleteTask(taskToUnfinish:Task)
+    fun completeTask(taskToComplete: Task):Observable<Int>
+    fun doNotCompleteTask(taskToUnfinish:Task):Observable<Int>
     fun deleteTask(taskToDelete: Task)
 }

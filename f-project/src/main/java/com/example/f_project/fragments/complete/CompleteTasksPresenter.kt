@@ -15,6 +15,7 @@ class CompleteTasksPresenter @Inject constructor(basePresenterDependency: BasePr
     private val sm = CompleteTasksScreenModel()
     override fun onFirstLoad() {
         projectInteractor.subscribeToCompleteTask()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     sm.tasksList.add(it)
                     view.render(sm)

@@ -17,6 +17,9 @@ import javax.inject.Inject
  * Вью TODO
  */
 class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
+
+    private var projectsProgressPb: ProgressBar? = null
+    private var projectsProgressTv: TextView? = null
     val easyAdapter = EasyAdapter()
 
     lateinit var tasksRecyclerView: RecyclerView
@@ -40,30 +43,34 @@ class ProjectActivityView : BaseRenderableActivityView<ProjectScreenModel>() {
             persistentState: PersistableBundle?,
             viewRecreated: Boolean
     ) {
-        initProjectId()
+        getProjectId()
         presenter.loadProjectInfo(PROJECT_ID!!)
         initViews()
         initViewPager()
         initListeners()
     }
 
-    private fun initProjectId() {
+    fun getProjectId() :Long?{
         PROJECT_ID = intent?.extras?.getLong("PROJECT_ID", 0)
+        return PROJECT_ID
     }
 
     private fun initViewPager() {
-        val pagerAdapater = TasksPagerAdapter(supportFragmentManager,PROJECT_ID!!)
+        val pagerAdapater = TasksPagerAdapter(supportFragmentManager, PROJECT_ID!!)
         project_viewpager.adapter = pagerAdapater
         project_tabs.setupWithViewPager(project_viewpager)
     }
 
     private fun initViews() {
-        val pb = findViewById<ProgressBar>(R.id.project_progress_pb)
+        projectsProgressPb = findViewById<ProgressBar>(R.id.project_progress_pb)
+        projectsProgressTv = findViewById<TextView>(R.id.projects_progress_tv)
     }
 
     override fun renderInternal(screenModel: ProjectScreenModel) {
         project_name_tv.text = screenModel.projectName
         project_description_tv.text = screenModel.projectDescription
+        projectsProgressPb?.progress = screenModel.projectProgress
+        projectsProgressTv?.text = "${screenModel.projectProgress}%"
     }
 
     private fun initListeners() {
