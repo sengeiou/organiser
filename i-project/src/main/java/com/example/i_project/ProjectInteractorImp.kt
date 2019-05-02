@@ -1,9 +1,9 @@
 package com.example.i_project
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.i_project.data.ProjectRepository
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
 import ru.surfstudio.standard.domain.project.Task
@@ -16,8 +16,9 @@ class ProjectInteractorImp @Inject constructor(private val projectRepository: Pr
         return updateProjectProgressSubject
     }
 
-    private var projectId:Long? = null
+    private var projectId: Long? = null
     private val PROJECT_INTERACTOR = "ProjectInteractor"
+
     override fun calculateProjectsProgress(projectId: Long): Observable<Int>? {
         this.projectId = projectId
         val completedTaskObservable = projectRepository.loadCompletedTasks(projectId)
@@ -49,14 +50,15 @@ class ProjectInteractorImp @Inject constructor(private val projectRepository: Pr
     private val unfinishTaskSubject = PublishSubject.create<Task>()
     private val updateProjectProgressSubject = PublishSubject.create<Boolean>()
 
+    @SuppressLint("LogNotTimber")
     override fun doNotCompleteTask(taskToUnfinish: Task) {
         taskToUnfinish.isCompleted = false
         projectRepository.doNotCompleteTask(taskToUnfinish)
-                .subscribe ({
+                .subscribe({
                     unfinishTaskSubject.onNext(taskToUnfinish)
                     updateProjectProgressSubject.onNext(true)
-                },{
-                    Log.e(PROJECT_INTERACTOR,it.message)
+                }, {
+                    Log.e(PROJECT_INTERACTOR, it.message)
                 })
 
     }
@@ -74,15 +76,15 @@ class ProjectInteractorImp @Inject constructor(private val projectRepository: Pr
         return completeTaskSubject
     }
 
-    //TODO реализовать запросы в бд
+    @SuppressLint("LogNotTimber")
     override fun completeTask(taskToComplete: Task) {
         taskToComplete.isCompleted = true
         projectRepository.completeTask(taskToComplete)
-                .subscribe ({
+                .subscribe({
                     completeTaskSubject.onNext(taskToComplete)
                     updateProjectProgressSubject.onNext(true)
-                },{
-                    Log.e(PROJECT_INTERACTOR,it.message)
+                }, {
+                    Log.e(PROJECT_INTERACTOR, it.message)
                 })
 
     }

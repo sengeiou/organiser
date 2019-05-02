@@ -1,5 +1,6 @@
 package com.example.cf_main_folder
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import com.example.i_folder.FolderInteractor
@@ -34,6 +35,7 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
     }
 
 
+    @SuppressLint("LogNotTimber")
     private fun observeToAddProjectActivity() {
         activityNavigator.observeResult<Long>(AddProjectActivityRoute())
                 .flatMap {
@@ -48,6 +50,7 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
                 })
     }
 
+    @SuppressLint("LogNotTimber")
     private fun observeToAddFolderActivity() {
         activityNavigator.observeResult<Long>(AddFolderActivityRoute())
                 .flatMap {
@@ -62,6 +65,7 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
                 })
     }
 
+    @SuppressLint("LogNotTimber")
     private fun loadProjects() {
         folderInteractor.loadProjects(FOLDER_ID)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -73,6 +77,7 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
                 })
     }
 
+    @SuppressLint("LogNotTimber")
     private fun loadFolders() {
         folderInteractor.loadFolders(FOLDER_ID)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -90,7 +95,6 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
 
     override fun onLoad(viewRecreated: Boolean) {
         super.onLoad(viewRecreated)
-        Log.d("moi", "asdasd")
         view.render(sm)
     }
 
@@ -108,7 +112,7 @@ class MainFolderPresenter @Inject constructor(basePresenterDependency: BasePrese
         activityNavigator.startForResult(AddProjectActivityRoute(folderId))
     }
 
-    fun openProject(projectId:Long) {
+    fun openProject(projectId: Long) {
         activityNavigator.start(ProjectActivityRoute(projectId))
     }
 

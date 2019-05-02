@@ -66,10 +66,9 @@ class AddFolderActivityView : BaseRenderableActivityView<AddFolderScreenModel>()
     }
 
     override fun renderInternal(screenModel: AddFolderScreenModel) {
-        if (!screenModel.isValid()){
+        if (!screenModel.isValid()) {
             addFolder_folderName_ET.error = "Вы ничего не ввели"
         }
-
     }
 
     private fun initListeners() {

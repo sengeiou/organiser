@@ -40,9 +40,8 @@ class CompleteTasksFragmentView : BaseRenderableFragmentView<CompleteTasksScreen
     })
 
 
-    val taskItemController = TaskItemController({
-
-    })
+    val taskItemController = TaskItemController {
+    }
 
     @Inject
     lateinit var presenter: CompleteTasksPresenter

@@ -1,5 +1,6 @@
 package com.example.cm_recyclerview.project
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.cm_recyclerview.R
@@ -30,9 +31,10 @@ class ProjectItemController(
             itemView.setOnClickListener { onItemClickAction(project) }
         }
 
+        @SuppressLint("SimpleDateFormat", "SetTextI18n")
         override fun bind(project: Project) {
             this.project = project
-            projectName.text = project.toString()
+            projectName.text = project.name
             project.beginDate?.let {
                 val dateBegin = SimpleDateFormat("dd.MM.yy").format(it)
                 projectDate.text = "C $dateBegin"

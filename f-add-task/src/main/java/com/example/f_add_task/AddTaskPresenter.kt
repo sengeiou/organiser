@@ -18,9 +18,9 @@ class AddTaskPresenter @Inject constructor(basePresenterDependency: BasePresente
         addTaskInteractor.addTask(task)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    activityNavigator.finishWithResult(AddTaskActivityRoute(),it)
-                },{
-                    Log.e(ADD_TASK_PRESENTER,it.message)
+                    activityNavigator.finishWithResult(AddTaskActivityRoute(), it)
+                }, {
+                    Log.e(ADD_TASK_PRESENTER, it.message)
                 })
     }
 }

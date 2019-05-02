@@ -1,5 +1,6 @@
 package com.example.f_add_project
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -22,12 +23,14 @@ import javax.inject.Inject
  */
 class AddProjectActivityView : BaseRenderableActivityView<AddProjectScreenModel>() {
 
+    @SuppressLint("SetTextI18n")
     val beginDateDialogListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                val monthFromOne = month+1
                 BEGIN_DATE = GregorianCalendar(year,month,day).time
                 addProject_begindate_tv.text = "$day.$monthFromOne.$year"
             }
+    @SuppressLint("SetTextI18n")
     val endDateDialogListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                 val monthFromOne = month+1

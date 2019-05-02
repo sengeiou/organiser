@@ -5,7 +5,8 @@ import io.reactivex.Observable
 import ru.surfstudio.standard.domain.folder.Project
 import javax.inject.Inject
 
-class AddProjectInteractorImp  @Inject constructor(val addProjectRepository: AddProjectRepository):AddProjectInteractor {
+class AddProjectInteractorImp  @Inject constructor(private val addProjectRepository: AddProjectRepository)
+    :AddProjectInteractor {
     override fun addProject(project: Project): Observable<Long> {
         return addProjectRepository.addProject(project)
     }

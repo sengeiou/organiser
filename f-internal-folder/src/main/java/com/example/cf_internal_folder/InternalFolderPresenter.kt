@@ -1,5 +1,6 @@
 package com.example.cf_internal_folder
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.fragment.app.FragmentTransaction
 import com.example.i_folder.FolderInteractor
@@ -26,26 +27,27 @@ class InternalFolderPresenter @Inject constructor(basePresenterDependency: BaseP
 
     private val sm = InternalFolderScreenModel()
     private val INTERNAL_FOLDER_PRESENTER = "InternalFolderPresenter"
-    override fun onLoad(viewRecreated: Boolean) {
-        super.onLoad(viewRecreated)
-    }
-
 
     fun openAddFolderActivity(folderId: Long) {
         observeToAddFolderActivity()
         activityNavigator.startForResult(AddFolderActivityRoute(folderId))
     }
 
+    @SuppressLint("LogNotTimber")
     private fun observeToAddFolderActivity() {
         activityNavigator.observeResult<Long>(AddFolderActivityRoute())
                 .flatMap {
                     folderInteractor.loadFolderById(it.data)
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     sm.folderList.add(it)
                     view.render(sm)
-                }
+                }, {
+                    Log.e(INTERNAL_FOLDER_PRESENTER, it.message)
+                })
+
+
     }
 
 
@@ -54,6 +56,7 @@ class InternalFolderPresenter @Inject constructor(basePresenterDependency: BaseP
         activityNavigator.startForResult(AddProjectActivityRoute(folderId))
     }
 
+    @SuppressLint("LogNotTimber")
     private fun observeToAddProjectActivity() {
         activityNavigator.observeResult<Long>(AddProjectActivityRoute())
                 .flatMap {
@@ -78,6 +81,7 @@ class InternalFolderPresenter @Inject constructor(basePresenterDependency: BaseP
         loadProjects(parentFolderId)
     }
 
+    @SuppressLint("LogNotTimber")
     private fun loadProjects(parentFolderId: Long) {
         folderInteractor.loadProjects(parentFolderId)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -89,6 +93,7 @@ class InternalFolderPresenter @Inject constructor(basePresenterDependency: BaseP
                 })
     }
 
+    @SuppressLint("LogNotTimber")
     private fun loadFolders(parentFolderId: Long) {
         folderInteractor.loadFolders(parentFolderId)
                 .observeOn(AndroidSchedulers.mainThread())

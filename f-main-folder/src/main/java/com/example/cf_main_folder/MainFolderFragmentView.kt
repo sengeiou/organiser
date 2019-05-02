@@ -35,8 +35,8 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
     private var fab_addFolder: FloatingActionButton? = null
     private var fab_addProject: FloatingActionButton? = null
 
-
     private lateinit var projectsRv: RecyclerView
+
     private val projectItemController = ProjectItemController {
         presenter.openProject(it.id)
     }
@@ -92,7 +92,6 @@ class MainFolderFragmentView : BaseRenderableFragmentView<MainFolderScreenModel>
                 .addAll(screenModel.folderList, folderItemController)
                 .addIf(screenModel.hasProjects(), projectHeaderItemController)
                 .addAll(screenModel.projectList, projectItemController)
-
         )
         if (screenModel.loading) {
             progressBar.visibility = View.VISIBLE

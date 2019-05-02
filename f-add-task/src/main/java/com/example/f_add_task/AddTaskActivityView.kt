@@ -1,5 +1,6 @@
 package com.example.f_add_task
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -25,35 +26,38 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
     private val datePickerDialog = DatePickerDialogFragment()
     private val timePickerDialog = TimePickerDialogFragment()
 
-    private var PARENT_PROJECT_ID:Long? = null
+    private var PARENT_PROJECT_ID: Long? = null
     lateinit var addTaskToolbar: Toolbar
-    private var BEGIN_DATE:Date? = null
-    private var END_DATE:Date? = null
 
+    private var BEGIN_DATE: Date? = null
+    private var END_DATE: Date? = null
 
     lateinit var beginDateTv: TextView
     lateinit var beginTimeTv: TextView
     lateinit var endDateTv: TextView
     lateinit var endTimeTv: TextView
 
+    @SuppressLint("SetTextI18n")
     val beginDateDialogListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                 val monthFromOne = month + 1
                 beginTimeTv.isEnabled = true
                 beginTimeTv.text = "8:00"
-                BEGIN_DATE = GregorianCalendar(year,month,day).time
+                BEGIN_DATE = GregorianCalendar(year, month, day).time
                 beginDateTv.text = "$day.$monthFromOne.$year"
             }
 
+    @SuppressLint("SetTextI18n")
     val endDateDialogListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
                 val monthFromOne = month + 1
                 endTimeTv.isEnabled = true
                 endTimeTv.text = "8:00"
-                END_DATE = GregorianCalendar(year,month,day).time
+                END_DATE = GregorianCalendar(year, month, day).time
                 endDateTv.text = "$day.$monthFromOne.$year"
             }
 
+    @SuppressLint("SetTextI18n")
     val beginTimeDialogListener =
             TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 var minuteWithZerro: String? = null
@@ -62,6 +66,7 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
                 } else minuteWithZerro = minute.toString()
                 beginTimeTv.text = "$hour:$minuteWithZerro"
             }
+    @SuppressLint("SetTextI18n")
     val endTimeDialogListener =
             TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 val minuteWithZerro: String?
@@ -76,7 +81,7 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
             val taskName = add_task_name_ET.text.toString()
             val reminder = add_task_reminder_spinner.selectedItemPosition
             val repeat = add_task_repeat_spinner.selectedItemPosition
-            presenter.addTask(Task(0, PARENT_PROJECT_ID!!,taskName,BEGIN_DATE,END_DATE,reminder,repeat,false))
+            presenter.addTask(Task(0, PARENT_PROJECT_ID!!, taskName, BEGIN_DATE, END_DATE, reminder, repeat, false))
         }
         if (item?.itemId == android.R.id.home) {
             onBackPressed()
@@ -112,7 +117,7 @@ class AddTaskActivityView : BaseRenderableActivityView<AddTaskScreenModel>() {
     }
 
     private fun initParentProjectId() {
-       PARENT_PROJECT_ID = intent.extras.getLong("PARENT_PROJECT_ID")
+        PARENT_PROJECT_ID = intent?.extras?.getLong("PARENT_PROJECT_ID")
     }
 
     private fun initViews() {

@@ -1,8 +1,6 @@
 package com.example.f_add_folder
 
-import android.util.Log
 import com.example.i_folder.AddFolderInteractor
-import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.surfstudio.android.core.mvp.presenter.BasePresenter
 import ru.surfstudio.android.core.mvp.presenter.BasePresenterDependency
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavigator
@@ -13,7 +11,7 @@ import javax.inject.Inject
 
 @PerScreen
 class AddFolderPresenter @Inject constructor(baseDependency: BasePresenterDependency,
-                                             val folderInteractor: AddFolderInteractor,
+                                             private val folderInteractor: AddFolderInteractor,
                                              private val activityNavigator: ActivityNavigator)
     : BasePresenter<AddFolderActivityView>(baseDependency) {
     private val sm = AddFolderScreenModel()
@@ -30,11 +28,11 @@ class AddFolderPresenter @Inject constructor(baseDependency: BasePresenterDepend
         }
     }
 
-  private  fun validate(folder: Folder): Boolean {
-      return if (folder.name.isEmpty()) {
-          sm.validate = false
-          view.render(sm)
-          false
-      } else true
+    private fun validate(folder: Folder): Boolean {
+        return if (folder.name.isEmpty()) {
+            sm.validate = false
+            view.render(sm)
+            false
+        } else true
     }
 }

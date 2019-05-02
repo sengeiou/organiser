@@ -27,8 +27,10 @@ import javax.inject.Inject
 class InternalFolderFragmentView : BaseRenderableFragmentView<InternalFolderScreenModel>() {
     @Inject
     lateinit var presenter: InternalFolderPresenter
+
     var fab_addFolder: FloatingActionButton? = null
     var fab_addProject: FloatingActionButton? = null
+
     lateinit var projectsRv: RecyclerView
     lateinit var progressBar: ProgressBar
     lateinit var toolbar: androidx.appcompat.widget.Toolbar
@@ -42,6 +44,7 @@ class InternalFolderFragmentView : BaseRenderableFragmentView<InternalFolderScre
     private val projectItemController = ProjectItemController {
         presenter.openProject(it)
     }
+
     private val folderHeaderItemController = HeaderFolderItemController()
     private val projectHeaderItemController = HeaderProjectItemController()
 

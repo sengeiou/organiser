@@ -16,10 +16,6 @@ class AddProjectPresenter @Inject constructor(baseDependency: BasePresenterDepen
     : BasePresenter<AddProjectActivityView>(baseDependency) {
     private val sm = AddProjectScreenModel()
 
-    override fun onLoad(viewRecreated: Boolean) {
-        super.onLoad(viewRecreated)
-    }
-
     fun addProject(project: Project) {
         if (validate(project)) {
             addProjectInteractor.addProject(project)

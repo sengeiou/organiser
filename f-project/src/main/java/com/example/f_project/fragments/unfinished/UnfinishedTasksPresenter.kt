@@ -1,5 +1,6 @@
 package com.example.f_project.fragments.unfinished
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.i_project.ProjectInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,6 +18,7 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
     private val UNFINISHED_TASK_PRESENTER = "UnfinishedTaskPresenter"
     private val sm = UnfinishedTasksScreenModel()
 
+    @SuppressLint("LogNotTimber")
     override fun onFirstLoad() {
         projectInteractor.subscribeToUnfinishedTask()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -33,7 +35,7 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
         activityNavigator.startForResult(AddTaskActivityRoute(projectId))
     }
 
-    //TODO добавить прогресс
+    @SuppressLint("LogNotTimber")
     fun loadUnfinishedTasks(projectId: Long) {
         projectInteractor.loadUnfinishedTasks(projectId)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,6 +48,7 @@ class UnfinishedTasksPresenter @Inject constructor(basePresenterDependency: Base
                 })
     }
 
+    @SuppressLint("LogNotTimber")
     private fun observeToAddTaskActivity() {
         activityNavigator.observeResult<Long>(AddTaskActivityRoute())
                 .flatMap {

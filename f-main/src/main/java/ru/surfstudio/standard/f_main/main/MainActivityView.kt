@@ -28,11 +28,13 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
     lateinit var mainFab: FloatingActionButton
     lateinit var projects_addFolder_fab: FloatingActionButton
     lateinit var projects_add_folder_tv: TextView
+
     lateinit var projects_addProject_fab: FloatingActionButton
     lateinit var projects_add_project_tv: TextView
 
     lateinit var fabAnimShow: Animation
     lateinit var tvAnimShow: Animation
+
     lateinit var fabFoldeAnimHide: Animation
     lateinit var fabProjectAnimHide: Animation
 
@@ -70,7 +72,6 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
         tvAnimShow = AnimationUtils.loadAnimation(this, R.anim.projects_tv_fab_show)
         fabFoldeAnimHide = AnimationUtils.loadAnimation(this, R.anim.projects_hide_menu_fabfolder)
         fabProjectAnimHide = AnimationUtils.loadAnimation(this, R.anim.projects_hide_menu_fabproject)
-
     }
 
     override fun renderInternal(sm: MainScreenModel) {
@@ -85,7 +86,6 @@ class MainActivityView : BaseRenderableActivityView<MainScreenModel>(), Fragment
             if (!fabIsOpen)
                 showFabMenu()
             else hideFabMenu()
-
         }
     }
 

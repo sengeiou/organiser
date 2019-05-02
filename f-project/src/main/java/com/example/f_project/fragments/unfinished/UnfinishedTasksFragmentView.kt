@@ -1,26 +1,22 @@
 package com.example.f_project.fragments.unfinished
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cf_project_recycler_view.EasyAdapterWithSwipe
+import com.example.cf_project_recycler_view.SimpleItemTouchHelperCallback
 import com.example.cf_project_recycler_view.TaskItemController
 import com.example.f_project.R
 import com.example.f_project.fragments.unfinished.di.UnfinishedTasksScreenConfigurator
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.surfstudio.android.core.mvp.fragment.BaseRenderableFragmentView
-import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
 import javax.inject.Inject
-import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.cf_project_recycler_view.EasyAdapterWithSwipe
-import com.example.cf_project_recycler_view.ItemTouchHelperAdapter
-import com.example.cf_project_recycler_view.SimpleItemTouchHelperCallback
-
 
 
 /**
@@ -41,16 +37,15 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
     private var PROJECT_ID: Long? = null
     private val easyAdapter = EasyAdapterWithSwipe({
         presenter.deleteTask(it)
-    },{
+    }, {
         presenter.completeTask(it)
     })
     lateinit var addTaskFab: FloatingActionButton
 
     lateinit var tasksRecyclerView: RecyclerView
 
-    private val itemController = TaskItemController({
-
-    })
+    private val itemController = TaskItemController {
+    }
 
     @Inject
     lateinit var presenter: UnfinishedTasksPresenter
@@ -82,7 +77,7 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
         val tasksRecyclerView = view?.findViewById<RecyclerView>(R.id.project_unfinished_tesks_rv)
         tasksRecyclerView?.layoutManager = LinearLayoutManager(activity)
         tasksRecyclerView?.adapter = easyAdapter
-        val callback = SimpleItemTouchHelperCallback(easyAdapter,context!!)
+        val callback = SimpleItemTouchHelperCallback(easyAdapter, context!!)
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(tasksRecyclerView)
     }
@@ -94,7 +89,7 @@ class UnfinishedTasksFragmentView : BaseRenderableFragmentView<UnfinishedTasksSc
 
     override fun renderInternal(screenModel: UnfinishedTasksScreenModel) {
         easyAdapter.setItems(ItemList.create()
-                .addAll(screenModel.tasksList,itemController))
+                .addAll(screenModel.tasksList, itemController))
     }
 
     private fun initListeners() {

@@ -1,5 +1,6 @@
 package com.example.i_project.data
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.i_database.TaskDao
 import io.reactivex.Observable
@@ -9,7 +10,8 @@ import ru.surfstudio.standard.domain.project.Task
 import javax.inject.Inject
 
 
-class ProjectRepositoryImp @Inject constructor(val taskDao: TaskDao): ProjectRepository {
+class ProjectRepositoryImp @Inject constructor(private val taskDao: TaskDao): ProjectRepository {
+    @SuppressLint("LogNotTimber")
     override fun deleteTask(taskToDelete: Task) {
         Observable.fromCallable {taskDao.deleteTask(taskToDelete)}
                 .subscribeOn(Schedulers.io())

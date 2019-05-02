@@ -20,10 +20,8 @@ class FolderItemController(
     inner class Holder(
             parent: ViewGroup?
     ) : BindableViewHolder<Folder>(parent, R.layout.folder_item) {
-
-
         private lateinit var data: Folder
-        private val firstTv: TextView = itemView.findViewById(R.id.projects_folderName_tv)
+        private val folderNameTv: TextView = itemView.findViewById(R.id.projects_folderName_tv)
 
         init {
             itemView.findViewById<LinearLayout>(R.id.folder_data_container).apply {
@@ -34,6 +32,6 @@ class FolderItemController(
         @SuppressLint("SetTextI18n")
         override fun bind(data: Folder) {
             this.data = data
-            firstTv.text = "$data"
+            folderNameTv.text = data.name
         }
     }}
