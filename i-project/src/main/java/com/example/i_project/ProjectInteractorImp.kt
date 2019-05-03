@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.example.i_project.data.ProjectRepository
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
 import ru.surfstudio.standard.domain.project.Task
@@ -44,6 +45,12 @@ class ProjectInteractorImp @Inject constructor(private val projectRepository: Pr
 
     override fun deleteTask(taskToDelete: Task) {
         projectRepository.deleteTask(taskToDelete)
+                .subscribe ({
+                    updateProjectProgressSubject.onNext(true)
+                },{
+                    Log.e(PROJECT_INTERACTOR,it.message)
+                })
+
     }
 
     private val completeTaskSubject = PublishSubject.create<Task>()

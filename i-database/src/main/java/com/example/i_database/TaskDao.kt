@@ -7,7 +7,7 @@ import ru.surfstudio.standard.domain.project.Task
 @Dao
 interface TaskDao {
     @Delete
-    fun deleteTask(task:Task)
+    fun deleteTask(task:Task):Int
     @Insert
     fun insertTask(task: Task):Long
 
